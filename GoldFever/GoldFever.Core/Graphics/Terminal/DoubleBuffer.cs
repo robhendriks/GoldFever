@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace GoldFever.Core.Graphics.Terminal
 {
@@ -70,15 +71,29 @@ namespace GoldFever.Core.Graphics.Terminal
             size = new Coord(Width, Height);
         }
 
-        public bool SetCharAt(int x, int y, CharInfo info)
+        public void Write(int x, int y, CharInfo info)
         {
             int offset = (y * Width) + x;
-            if (offset > _buffer.Length - 1)
-                return false;
 
             _buffer[offset] = info;
-            return true;
+            return;
         }
+
+        public void Write(string str, int x, int y, CharInfo info)
+        {
+            var bytes = Encoding.ASCII.GetBytes(str);
+
+            int offset = (y * Width) + x,
+                index = 0;
+
+            foreach (var b in bytes)
+            {
+                info.Char.AsciiChar = b;
+                _buffer[offset + (index++)] = info;
+            }
+        }
+
+        
 
         public bool Draw()
         {

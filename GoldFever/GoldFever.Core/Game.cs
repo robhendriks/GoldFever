@@ -39,6 +39,14 @@ namespace GoldFever.Core
             get { return _levelManager; }
         }
 
+        private int _score;
+
+        public int Score
+        {
+            get { return _score; }
+            set { _score = value; }
+        }
+
         public IRenderer Renderer { get; set; }
 
         public Game(GameOptions options)
@@ -48,6 +56,7 @@ namespace GoldFever.Core
 
             _running = false;
             _options = options;
+            _score = 0;
 
             Initialize();
         }
@@ -65,13 +74,14 @@ namespace GoldFever.Core
 
         private void Loop()
         {
-            logicThread = new Thread(HandleLogic);
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(0, 0);
+
             inputThread = new Thread(HandleInput);
+            logicThread = new Thread(HandleLogic);
 
-            Renderer?.Render();
-
-            logicThread.Start();
             inputThread.Start();
+            logicThread.Start();
         }
 
         private void HandleInput()
@@ -93,10 +103,22 @@ namespace GoldFever.Core
 
         private void HandleLogic()
         {
-            while(_running)
+            Renderer?.Render();
+
+            while (_running)
             {
-                Update();
                 Renderer?.Render();
+
+                try
+                {
+                    Update();
+                }
+                catch (GameOverException ex)
+                {
+                    _running = false;
+                    Console.Title = "Game Over!";
+                    Console.ReadKey();
+                }
 
                 Thread.Sleep(1000);
             }

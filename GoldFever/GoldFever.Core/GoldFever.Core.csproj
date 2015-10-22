@@ -49,14 +49,14 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameException.cs" />
     <Compile Include="GameOptions.cs" />
+    <Compile Include="GameOverException.cs" />
     <Compile Include="Generic\Direction.cs" />
-    <Compile Include="Graphics\Terminal\Color\Background.cs" />
+    <Compile Include="Graphics\Terminal\Color.cs" />
     <Compile Include="Graphics\Terminal\CharInfo.cs" />
     <Compile Include="Graphics\Terminal\CharUnion.cs" />
     <Compile Include="Graphics\Terminal\Coord.cs" />
     <Compile Include="Graphics\Terminal\DoubleBuffer.cs" />
     <Compile Include="Graphics\IRenderer.cs" />
-    <Compile Include="Graphics\Terminal\Color\Foreground.cs" />
     <Compile Include="Graphics\Terminal\SmallRect.cs" />
     <Compile Include="Level\BaseLevel.cs" />
     <Compile Include="Cart\BaseCart.cs" />

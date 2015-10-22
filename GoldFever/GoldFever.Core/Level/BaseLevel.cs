@@ -86,22 +86,6 @@ namespace GoldFever.Core.Level
 
             if (_depots.Length == 0)
                 throw new LevelLoadException("Level does not have an entry point.");
-
-            #region Debug
-
-            BaseCart c1, c2, c3;
-            c1 = new BaseCart();
-            c1.Current = _depots[0];
-
-            c2 = new BaseCart();
-            c2.Current = _depots[1];
-
-            c3 = new BaseCart();
-            c3.Current = _depots[2];
-
-            _carts.AddRange(new BaseCart[] { c1, c2, c3 });
-
-            #endregion
         }
 
         private void LinkTrack(BaseTrack current, ref List<BaseTrack> visited)
@@ -164,14 +148,39 @@ namespace GoldFever.Core.Level
             return results.ToArray();
         }
 
+        private Random rand = new Random();
+        private int maxSteps = 2,
+                    steps = 2,
+                    maxAmount = 2,
+                    amount = 0;
+
         public void Update()
         {
-            foreach (var cart in _carts)
-                cart.Update();
+            var dispose = new List<BaseCart>();
+
+            if (steps < maxSteps)
+                steps++;
+            else if(amount < maxAmount)
+            {
+                var c1 = new BaseCart();
+                c1.Current = _depots[rand.Next(0, 3)];
+                _carts.Add(c1);
+
+                steps = 0;
+                amount++;
+            }
 
             foreach (var cart in _carts)
-                if (cart.Disposed)
-                    _carts.Remove(cart);
+            {
+                if (cart.IsDisposed)
+                    dispose.Add(cart);
+
+                cart.Update();
+            }
+
+            // Clean up
+            foreach (var cart in dispose)
+                _carts.Remove(cart);
         }
     }
 }

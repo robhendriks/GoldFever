@@ -1,10 +1,14 @@
 ﻿using GoldFever.Core.Generic;
+using GoldFever.Core.Graphics.Terminal;
 using System;
 
 namespace GoldFever.Core.Track
 {
     public abstract class SwitchTrack : BaseTrack
     {
+        protected const byte CharUp = 24,
+                             CharDown = 25;
+
         protected ConsoleKey _key;
 
         public ConsoleKey Key
@@ -54,6 +58,11 @@ namespace GoldFever.Core.Track
                 return SwitchMode.Down;
             else
                 throw new ArgumentException("Invalid target {target}.");
+        }
+
+        public override short Attributes()
+        {
+            return Color.ForegroundRed | Color.BackgroundDarkRed;
         }
     }
 }

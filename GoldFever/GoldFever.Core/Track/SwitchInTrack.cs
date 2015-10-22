@@ -40,5 +40,15 @@ namespace GoldFever.Core.Track
 
             return valid;
         }
+
+        public override bool Collides()
+        {
+            return false;
+        }
+
+        public override byte Character()
+        {
+            return (_mode == SwitchMode.Down ? CharDown : CharUp);
+        }
     }
 }

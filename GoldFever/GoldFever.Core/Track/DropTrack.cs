@@ -1,5 +1,7 @@
 ﻿using GoldFever.Core.Generic;
 using System;
+using GoldFever.Core.Cart;
+using GoldFever.Core.Graphics.Terminal;
 
 namespace GoldFever.Core.Track
 {
@@ -9,6 +11,22 @@ namespace GoldFever.Core.Track
             : base(position, direction)
         {
 
+        }
+
+        public override void OnEnter(BaseCart cart)
+        {
+            cart.Empty();
+            base.OnEnter(cart);
+        }
+
+        public override byte Character()
+        {
+            return 36;
+        }
+
+        public override short Attributes()
+        {
+            return Color.ForegroundRed | Color.BackgroundDarkRed;
         }
     }
 }

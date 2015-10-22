@@ -35,5 +35,15 @@ namespace GoldFever.Core.Track
             return !Occupied 
                 && (Compare(cart.Current.Position) == _mode);
         }
+
+        public override bool Collides()
+        {
+            return false;
+        }
+
+        public override byte Character()
+        {
+            return (_mode == SwitchMode.Up ? CharDown : CharUp);
+        }
     }
 }

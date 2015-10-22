@@ -1,4 +1,5 @@
 ﻿using GoldFever.Core.Generic;
+using GoldFever.Core.Graphics.Terminal;
 using System;
 
 namespace GoldFever.Core.Track
@@ -9,6 +10,16 @@ namespace GoldFever.Core.Track
             : base(position, direction)
         {
 
+        }
+
+        public override byte Character()
+        {
+            return 26;
+        }
+
+        public override short Attributes()
+        {
+            return Color.ForegroundWhite | Color.BackgroundDarkYellow;
         }
     }
 }

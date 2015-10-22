@@ -1,4 +1,5 @@
-﻿using GoldFever.Core.Generic;
+﻿using GoldFever.Core.Cart;
+using GoldFever.Core.Generic;
 using System;
 
 namespace GoldFever.Core.Track
@@ -9,6 +10,11 @@ namespace GoldFever.Core.Track
             : base(position, direction)
         {
 
+        }
+
+        public override void OnEnter(BaseCart cart)
+        {
+            cart?.Dispose();
         }
     }
 }

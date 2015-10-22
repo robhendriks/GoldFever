@@ -1,5 +1,6 @@
 ﻿using GoldFever.Core.Cart;
 using GoldFever.Core.Generic;
+using GoldFever.Core.Graphics.Terminal;
 using GoldFever.Core.Level;
 using System;
 
@@ -33,17 +34,6 @@ namespace GoldFever.Core.Track
         public BaseCart Cart
         {
             get { return _cart; }
-            set
-            {
-                if (_cart == null && value != null)
-                    OnEnter();
-                else if (_cart != null && value == null)
-                    OnLeave();
-                else
-                    throw new InvalidOperationException("Track already occupied.");
-
-                _cart = value;
-            }
         }
 
         public bool Occupied
@@ -74,14 +64,21 @@ namespace GoldFever.Core.Track
             return valid;
         }
 
-        protected virtual void OnEnter()
+        public virtual void OnEnter(BaseCart cart)
         {
-            
+            if (cart == null)
+                throw new ArgumentNullException("cart");
+
+            _cart = cart;
+        }
+        public virtual void OnLeave()
+        {
+            _cart = null;
         }
 
-        protected virtual void OnLeave()
+        public virtual bool Collides()
         {
-            
+            return true;
         }
 
         public virtual bool CanEnter(BaseCart cart)
@@ -92,6 +89,16 @@ namespace GoldFever.Core.Track
         public virtual bool CanLeave()
         {
             return (_next != null ? !_next.Occupied : true);
+        }
+
+        public virtual byte Character()
+        {
+            return 0;
+        }
+
+        public virtual short Attributes()
+        {
+            return Color.ForegroundWhite | Color.BackgroundDarkRed;
         }
     }
 }
