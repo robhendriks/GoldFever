@@ -1,4 +1,5 @@
-﻿using GoldFever.Core.Generic;
+﻿using GoldFever.Core.Cart;
+using GoldFever.Core.Generic;
 using GoldFever.Core.Level;
 using System;
 
@@ -22,9 +23,32 @@ namespace GoldFever.Core.Track
 
         protected BaseTrack _next;
 
-        public BaseTrack Next
+        public virtual BaseTrack Next
         {
             get { return _next; }
+        }
+
+        protected BaseCart _cart;
+
+        public BaseCart Cart
+        {
+            get { return _cart; }
+            set
+            {
+                if (_cart == null && value != null)
+                    OnEnter();
+                else if (_cart != null && value == null)
+                    OnLeave();
+                else
+                    throw new InvalidOperationException("Track already occupied.");
+
+                _cart = value;
+            }
+        }
+
+        public bool Occupied
+        {
+            get { return (_cart != null); }
         }
 
         public BaseTrack(Vector position, Direction direction)
@@ -50,14 +74,24 @@ namespace GoldFever.Core.Track
             return valid;
         }
 
-        public virtual bool CanEnter()
+        protected virtual void OnEnter()
         {
-            return true;
+            
+        }
+
+        protected virtual void OnLeave()
+        {
+            
+        }
+
+        public virtual bool CanEnter(BaseCart cart)
+        {
+            return !Occupied;
         }
 
         public virtual bool CanLeave()
         {
-            return true;
+            return (_next != null ? !_next.Occupied : true);
         }
     }
 }

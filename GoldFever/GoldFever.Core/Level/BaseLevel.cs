@@ -1,17 +1,46 @@
-﻿using GoldFever.Core.Generic;
+﻿using GoldFever.Core.Cart;
+using GoldFever.Core.Generic;
 using GoldFever.Core.Track;
 using System;
 using System.Collections.Generic;
 
 namespace GoldFever.Core.Level
 {
-    public abstract class BaseLevel
+    public class BaseLevel
     {
+        protected LevelMetrics _metrics;
+
+        public LevelMetrics Metrics
+        {
+            get { return _metrics; }
+        }
+
         protected BaseTrack[] _tracks;
 
         public BaseTrack[] Tracks
         {
             get { return _tracks; }
+        }
+
+        protected StartTrack[] _depots;
+
+        public StartTrack[] Depots
+        {
+            get { return _depots; }
+        }
+
+        protected SwitchTrack[] _switches;
+
+        public SwitchTrack[] Switches
+        {
+            get { return _switches; }
+        }
+
+        protected List<BaseCart> _carts;
+
+        public List<BaseCart> Carts
+        {
+            get { return _carts; }
         }
 
         public BaseLevel(BaseTrack[] tracks)
@@ -21,50 +50,58 @@ namespace GoldFever.Core.Level
             else if (tracks.Length == 0)
                 throw new ArgumentException("Track array is empty.");
 
+            _metrics = LevelMetrics.Zero;
             _tracks = tracks;
+            _carts = new List<BaseCart>();
 
             Initialize();
-        }
-
-        public BaseTrack GetTrackAt(Vector position)
-        {
-            foreach (var track in _tracks)
-                if (track.Position.Equals(position))
-                    return track;
-
-            return null;
-        }
-
-        public BaseTrack[] GetTracksFacing(Vector position, params Direction[] directions)
-        {
-            var results = new List<BaseTrack>();
-
-            Vector pos;
-            BaseTrack target;
-
-            foreach(var direction in directions)
-            {
-                if (direction == Direction.None)
-                    continue;
-
-                pos = position.Facing(direction);
-                target = GetTrackAt(pos);
-
-                if (target == null)
-                    continue;
-
-                results.Add(target);
-            }
-
-            return results.ToArray();
         }
 
         private void LinkTracks()
         {
             var visited = new List<BaseTrack>();
+            var depots = new List<StartTrack>();
+            var switches = new List<SwitchTrack>();
 
             foreach (BaseTrack track in _tracks)
+            {
+                int x = track.Position.X + 1,
+                    y = track.Position.Y + 1;
+
+                if (x > _metrics.Width)
+                    _metrics.Width = x;
+                if (y > _metrics.Height)
+                    _metrics.Height = y;
+
+                if (track is StartTrack)
+                    depots.Add((StartTrack)track);
+                else if (track is SwitchTrack)
+                    switches.Add((SwitchTrack)track);
+
                 LinkTrack(track, ref visited);
+            }
+
+            _depots = depots.ToArray();
+            _switches = switches.ToArray();
+
+            if (_depots.Length == 0)
+                throw new LevelLoadException("Level does not have an entry point.");
+
+            #region Debug
+
+            BaseCart c1, c2, c3;
+            c1 = new BaseCart();
+            c1.Current = _depots[0];
+
+            c2 = new BaseCart();
+            c2.Current = _depots[1];
+
+            c3 = new BaseCart();
+            c3.Current = _depots[2];
+
+            _carts.AddRange(new BaseCart[] { c1, c2, c3 });
+
+            #endregion
         }
 
         private void LinkTrack(BaseTrack current, ref List<BaseTrack> visited)
@@ -92,6 +129,49 @@ namespace GoldFever.Core.Level
             {
                 throw new LevelLoadException("Unable to initialize level.", ex);
             }
+        }
+
+        public BaseTrack GetTrackAt(Vector position)
+        {
+            foreach (var track in _tracks)
+                if (track.Position.Equals(position))
+                    return track;
+
+            return null;
+        }
+
+        public BaseTrack[] GetTracksFacing(Vector position, params Direction[] directions)
+        {
+            var results = new List<BaseTrack>();
+
+            Vector pos;
+            BaseTrack target;
+
+            foreach (var direction in directions)
+            {
+                if (direction == Direction.None)
+                    continue;
+
+                pos = position.Facing(direction);
+                target = GetTrackAt(pos);
+
+                if (target == null)
+                    continue;
+
+                results.Add(target);
+            }
+
+            return results.ToArray();
+        }
+
+        public void Update()
+        {
+            foreach (var cart in _carts)
+                cart.Update();
+
+            foreach (var cart in _carts)
+                if (cart.Disposed)
+                    _carts.Remove(cart);
         }
     }
 }

@@ -1,11 +1,16 @@
 ﻿using GoldFever.Core.Content;
+using GoldFever.Core.Graphics;
 using GoldFever.Core.Level;
 using System;
+using System.Threading;
 
 namespace GoldFever.Core
 {
     public sealed class Game
     {
+        private Thread inputThread;
+        private Thread logicThread;
+
         private bool _running;
 
         public bool Running
@@ -34,6 +39,8 @@ namespace GoldFever.Core
             get { return _levelManager; }
         }
 
+        public IRenderer Renderer { get; set; }
+
         public Game(GameOptions options)
         {
             if (options == null)
@@ -56,6 +63,50 @@ namespace GoldFever.Core
             _levelManager.Load();
         }
 
+        private void Loop()
+        {
+            logicThread = new Thread(HandleLogic);
+            inputThread = new Thread(HandleInput);
+
+            Renderer?.Render();
+
+            logicThread.Start();
+            inputThread.Start();
+        }
+
+        private void HandleInput()
+        {
+            while(_running)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var info = Console.ReadKey(true);
+
+                    foreach (var actor in _levelManager.Level.Switches)
+                        if (actor.Key == info.Key)
+                            actor.Toggle();
+
+                    Renderer?.Render();
+                }
+            }
+        }
+
+        private void HandleLogic()
+        {
+            while(_running)
+            {
+                Update();
+                Renderer?.Render();
+
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void Update()
+        {
+            _levelManager.Level.Update();
+        }
+
         public void Run()
         {
             if (_running)
@@ -66,6 +117,7 @@ namespace GoldFever.Core
             try
             {
                 Load();
+                Loop();
             }
             catch(GameException ex)
             {

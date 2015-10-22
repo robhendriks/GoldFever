@@ -40,9 +40,15 @@ namespace GoldFever.Core.Track
             if (!_bindings.TryGetValue(data.Type, out type))
                 throw new TypeLoadException($"Track type {data.Type} has no binding.");
 
-            return (BaseTrack)Activator.CreateInstance(type, 
-                data.Position, 
-                data.Direction);
+            object[] args;
+
+            if (type.IsSubclassOf(typeof(SwitchTrack)))
+                args = new object[] { data.Position, data.Direction, data.Key };
+            else
+                args = new object[] { data.Position, data.Direction };
+
+
+            return (BaseTrack)Activator.CreateInstance(type, args);
         }
 
         public BaseTrack[] Create(LevelModel data)

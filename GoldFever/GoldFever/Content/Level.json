@@ -190,7 +190,8 @@
                 "X": "3",
                 "Y": "3"
             },
-            "Direction": "None"
+            "Direction": "None",
+            "Key": "Q"
         },
         {
             "Type": "Default",
@@ -206,7 +207,8 @@
                 "X": "5",
                 "Y": "3"
             },
-            "Direction": "None"
+            "Direction": "None",
+            "Key": "W"
         },
         {
             "Type": "SwitchOut",
@@ -214,7 +216,8 @@
                 "X": "9",
                 "Y": "3"
             },
-            "Direction": "None"
+            "Direction": "None",
+            "Key": "E"
         },
         {
             "Type": "Default",
@@ -302,7 +305,8 @@
                 "X": "6",
                 "Y": "5"
             },
-            "Direction": "None"
+            "Direction": "None",
+            "Key": "S"
         },
         {
             "Type": "Default",
@@ -318,7 +322,8 @@
                 "X": "8",
                 "Y": "5"
             },
-            "Direction": "None"
+            "Direction": "None",
+            "Key": "D"
         },
         {
             "Type": "Start",
