@@ -1,4 +1,5 @@
 ﻿using GoldFever.Core.Generic;
+using GoldFever.Core.Level;
 using System;
 
 namespace GoldFever.Core.Track
@@ -30,6 +31,23 @@ namespace GoldFever.Core.Track
         {
             _position = position;
             _direction = direction;
+        }
+
+        public virtual bool Link(BaseLevel level, out BaseTrack[] results)
+        {
+            if(_direction == Direction.None)
+            {
+                results = null;
+                return false;
+            }
+
+            results = level.GetTracksFacing(_position, _direction);
+
+            bool valid = (results.Length != 0);
+            if (valid)
+                _next = results[0];
+
+            return valid;
         }
 
         public virtual bool CanEnter()

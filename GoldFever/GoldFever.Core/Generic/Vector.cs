@@ -4,6 +4,13 @@ namespace GoldFever.Core.Generic
 {
     public struct Vector
     {
+        private static Vector emptyVector = new Vector(-1, -1);
+
+        public static Vector Empty
+        {
+            get { return emptyVector; }
+        }
+
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -36,9 +43,21 @@ namespace GoldFever.Core.Generic
             return X.GetHashCode() + Y.GetHashCode();
         }
 
-        public override string ToString()
+        public Vector Facing(Direction direction)
         {
-            return $"{{X:{X} Y:{Y}}}";
+            switch(direction)
+            {
+                default:
+                    return Empty;
+                case Direction.North:
+                    return new Vector(X, Y - 1);
+                case Direction.East:
+                    return new Vector(X + 1, Y);
+                case Direction.South:
+                    return new Vector(X, Y + 1);
+                case Direction.West:
+                    return new Vector(X - 1, Y);
+            }
         }
     }
 }

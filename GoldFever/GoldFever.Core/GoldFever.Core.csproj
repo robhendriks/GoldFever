@@ -66,6 +66,7 @@
     <Compile Include="Track\StartTrack.cs" />
     <Compile Include="Track\SwitchInTrack.cs" />
     <Compile Include="Track\SwitchOutTrack.cs" />
+    <Compile Include="Track\SwitchTrack.cs" />
     <Compile Include="Track\TrackFactory.cs" />
     <Compile Include="Track\TrackType.cs" />
     <Compile Include="Generic\Vector.cs" />
