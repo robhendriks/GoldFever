@@ -76,7 +76,14 @@ namespace GoldFever.Core.Graphics.Terminal
             int offset = (y * Width) + x;
 
             _buffer[offset] = info;
-            return;
+        }
+
+        public void Write(int x, int y, int length, CharInfo info)
+        {
+            int offset = (y * Width) + x;
+
+            for (int i = 0; i < length; i++)
+                _buffer[offset + i] = info;
         }
 
         public void Write(string str, int x, int y, CharInfo info)
@@ -93,7 +100,11 @@ namespace GoldFever.Core.Graphics.Terminal
             }
         }
 
-        
+        public void Clear()
+        {
+            for (int i = 0; i < _buffer.Length; i++)
+                _buffer[i] = new CharInfo();
+        }
 
         public bool Draw()
         {

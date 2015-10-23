@@ -19,9 +19,9 @@ namespace GoldFever.Core.Track
             base.OnEnter(cart);
         }
 
-        public override byte Character()
+        public override byte Char()
         {
-            return 36;
+            return 127;
         }
 
         public override short Attributes()

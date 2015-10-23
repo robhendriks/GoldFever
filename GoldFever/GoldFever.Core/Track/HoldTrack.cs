@@ -17,9 +17,9 @@ namespace GoldFever.Core.Track
             return false;
         }
 
-        public override byte Character()
+        public override byte Char()
         {
-            return 16;
+            return 176;
         }
 
         public override short Attributes()

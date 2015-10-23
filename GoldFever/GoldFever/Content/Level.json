@@ -306,7 +306,7 @@
 				"Y": 5
 			},
 			"Direction": "None",
-			"Key": "S"
+			"Key": "R"
 		},
 		{
 			"Type": "Default",
@@ -323,7 +323,7 @@
 				"Y": 5
 			},
 			"Direction": "None",
-			"Key": "D"
+			"Key": "T"
 		},
 		{
 			"Type": "Start",

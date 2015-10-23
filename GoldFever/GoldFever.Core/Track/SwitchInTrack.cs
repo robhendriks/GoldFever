@@ -46,7 +46,7 @@ namespace GoldFever.Core.Track
             return false;
         }
 
-        public override byte Character()
+        public override byte Char()
         {
             return (_mode == SwitchMode.Down ? CharDown : CharUp);
         }

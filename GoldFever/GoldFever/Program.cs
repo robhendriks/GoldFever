@@ -1,4 +1,5 @@
 ﻿using GoldFever.Core;
+using GoldFever.Core.Graphics.Terminal;
 using GoldFever.Core.Model;
 using System;
 
@@ -13,7 +14,7 @@ namespace GoldFever
                 ContentPath = "GoldFever.Content"
             });
 
-            game.Renderer = new TestRenderer(game);
+            game.Renderer = new TerminalRenderer(game);
             game.Run();
 
             Console.ReadKey();

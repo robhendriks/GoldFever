@@ -58,6 +58,7 @@
     <Compile Include="Graphics\Terminal\DoubleBuffer.cs" />
     <Compile Include="Graphics\IRenderer.cs" />
     <Compile Include="Graphics\Terminal\SmallRect.cs" />
+    <Compile Include="Graphics\Terminal\TerminalRenderer.cs" />
     <Compile Include="Level\BaseLevel.cs" />
     <Compile Include="Cart\BaseCart.cs" />
     <Compile Include="Level\LevelLoadException.cs" />

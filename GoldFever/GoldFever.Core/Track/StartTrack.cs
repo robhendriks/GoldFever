@@ -12,14 +12,14 @@ namespace GoldFever.Core.Track
 
         }
 
-        public override byte Character()
+        public override byte Char()
         {
-            return 26;
+            return 175;
         }
 
         public override short Attributes()
         {
-            return Color.ForegroundWhite | Color.BackgroundDarkYellow;
+            return Color.ForegroundRed | Color.BackgroundDarkRed;
         }
     }
 }

@@ -39,6 +39,11 @@ namespace GoldFever.Core
             get { return _levelManager; }
         }
 
+        public BaseLevel Level
+        {
+            get { return _levelManager?.Level; }
+        }
+
         private int _score;
 
         public int Score
@@ -108,6 +113,7 @@ namespace GoldFever.Core
             while (_running)
             {
                 Renderer?.Render();
+                Thread.Sleep(1000);
 
                 try
                 {
@@ -119,8 +125,6 @@ namespace GoldFever.Core
                     Console.Title = "Game Over!";
                     Console.ReadKey();
                 }
-
-                Thread.Sleep(1000);
             }
         }
 

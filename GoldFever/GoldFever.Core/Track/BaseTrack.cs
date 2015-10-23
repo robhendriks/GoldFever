@@ -15,6 +15,16 @@ namespace GoldFever.Core.Track
             get { return _position; }
         }
 
+        public int X
+        {
+            get { return _position.X; }
+        }
+
+        public int Y
+        {
+            get { return _position.Y; }
+        }
+
         protected Direction _direction;
 
         public Direction Direction
@@ -91,7 +101,7 @@ namespace GoldFever.Core.Track
             return (_next != null ? !_next.Occupied : true);
         }
 
-        public virtual byte Character()
+        public virtual byte Char()
         {
             return 0;
         }
