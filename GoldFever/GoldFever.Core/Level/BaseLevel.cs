@@ -8,6 +8,13 @@ namespace GoldFever.Core.Level
 {
     public class BaseLevel
     {
+        protected LevelManager _manager;
+
+        public LevelManager Manager
+        {
+            get { return _manager; }
+        }
+        
         protected LevelMetrics _metrics;
 
         public LevelMetrics Metrics
@@ -43,18 +50,35 @@ namespace GoldFever.Core.Level
             get { return _carts; }
         }
 
-        public BaseLevel(BaseTrack[] tracks)
+        public BaseLevel(LevelManager manager, BaseTrack[] tracks)
         {
-            if (tracks == null)
+            if(manager == null)
+                throw new ArgumentNullException("manager");
+            else if (tracks == null)
                 throw new ArgumentNullException("tracks");
             else if (tracks.Length == 0)
                 throw new ArgumentException("Track array is empty.");
 
+            _manager = manager;
             _metrics = LevelMetrics.Zero;
             _tracks = tracks;
             _carts = new List<BaseCart>();
 
             Initialize();
+        }
+
+        protected void BaseLevel_OnAction(object sender, ActionEventArgs e)
+        {
+            if (e == null)
+                return;
+
+            switch(e.Action)
+            {
+                default:
+                    break;
+                case Action.IncrementScore:
+                    _manager.Game.Score += 10; break;
+            }
         }
 
         private void LinkTracks()
@@ -65,6 +89,8 @@ namespace GoldFever.Core.Level
 
             foreach (BaseTrack track in _tracks)
             {
+                track.OnAction += BaseLevel_OnAction;
+
                 int x = track.Position.X + 1,
                     y = track.Position.Y + 1;
 

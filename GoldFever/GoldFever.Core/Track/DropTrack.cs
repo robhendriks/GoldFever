@@ -16,6 +16,8 @@ namespace GoldFever.Core.Track
         public override void OnEnter(BaseCart cart)
         {
             cart.Empty();
+            InvokeAction(new ActionEventArgs(Action.IncrementScore));
+
             base.OnEnter(cart);
         }
 

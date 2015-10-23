@@ -36,7 +36,7 @@ namespace GoldFever.Core.Level
                 throw new ArgumentNullException("data");
 
             var factory = TrackFactory.GetInstance();
-            _level = new BaseLevel(factory.Create(data));
+            _level = new BaseLevel(this, factory.Create(data));
         }
 
         public void Load()

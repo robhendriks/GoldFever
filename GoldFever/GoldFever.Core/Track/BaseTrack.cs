@@ -110,5 +110,19 @@ namespace GoldFever.Core.Track
         {
             return Color.ForegroundWhite | Color.BackgroundDarkRed;
         }
+
+        #region Events
+
+        public void InvokeAction(ActionEventArgs e)
+        {
+            var handler = OnAction;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        public event ActionHandler OnAction;
+        public delegate void ActionHandler(object sender, ActionEventArgs e);
+
+        #endregion
     }
 }
