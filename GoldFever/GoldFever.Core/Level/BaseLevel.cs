@@ -1,5 +1,7 @@
 ﻿using GoldFever.Core.Cart;
 using GoldFever.Core.Generic;
+using GoldFever.Core.Model;
+using GoldFever.Core.Ship;
 using GoldFever.Core.Track;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,13 @@ namespace GoldFever.Core.Level
         public LevelMetrics Metrics
         {
             get { return _metrics; }
+        }
+
+        protected ShipPort _port;
+
+        public ShipPort Port
+        {
+            get { return _port; }
         }
 
         protected BaseTrack[] _tracks;
@@ -50,21 +59,31 @@ namespace GoldFever.Core.Level
             get { return _carts; }
         }
 
-        public BaseLevel(LevelManager manager, BaseTrack[] tracks)
+        public BaseLevel(LevelManager manager, LevelModel data)
         {
             if(manager == null)
                 throw new ArgumentNullException("manager");
-            else if (tracks == null)
-                throw new ArgumentNullException("tracks");
-            else if (tracks.Length == 0)
-                throw new ArgumentException("Track array is empty.");
+            else if (data == null)
+                throw new ArgumentNullException("data");
 
             _manager = manager;
             _metrics = LevelMetrics.Zero;
-            _tracks = tracks;
+            _port = new ShipPort(this, data.Port);
+            _tracks = TrackFactory.GetInstance().Create(data);
             _carts = new List<BaseCart>();
 
             Initialize();
+        }
+
+        protected void IncrementScore()
+        {
+            if (_port.Loading == null 
+             || _port.Loading.Full 
+             || !_port.Loading.Loading)
+                return;
+
+            _port.Loading.Size++;
+            _manager.Game.Score += 10;
         }
 
         protected void BaseLevel_OnAction(object sender, ActionEventArgs e)
@@ -77,7 +96,7 @@ namespace GoldFever.Core.Level
                 default:
                     break;
                 case Action.IncrementScore:
-                    _manager.Game.Score += 10; break;
+                    IncrementScore(); break;
             }
         }
 
@@ -176,25 +195,31 @@ namespace GoldFever.Core.Level
 
         private Random rand = new Random();
         private int maxSteps = 2,
-                    steps = 2,
-                    maxAmount = 2,
+                    steps = 4,
+                    maxAmount = 24,
                     amount = 0;
 
         public void Update()
         {
             var dispose = new List<BaseCart>();
 
+            #region Debug
+
             if (steps < maxSteps)
                 steps++;
-            else if(amount < maxAmount)
+            else if (amount < maxAmount)
             {
                 var c1 = new BaseCart();
-                c1.Current = _depots[rand.Next(0, 3)];
+                c1.Current = _depots[0]; //[rand.Next(0, 3)];
                 _carts.Add(c1);
 
                 steps = 0;
                 amount++;
             }
+
+            #endregion
+
+            _port.Update();
 
             foreach (var cart in _carts)
             {

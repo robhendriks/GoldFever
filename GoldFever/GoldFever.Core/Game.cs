@@ -8,6 +8,8 @@ namespace GoldFever.Core
 {
     public sealed class Game
     {
+        public static bool GodMode = false;
+
         private Thread inputThread;
         private Thread logicThread;
 
@@ -97,6 +99,9 @@ namespace GoldFever.Core
                 {
                     var info = Console.ReadKey(true);
 
+                    if (info.Key == ConsoleKey.G)
+                        GodMode = !GodMode;
+
                     foreach (var actor in _levelManager.Level.Switches)
                         if (actor.Key == info.Key)
                             actor.Toggle();
@@ -113,7 +118,7 @@ namespace GoldFever.Core
             while (_running)
             {
                 Renderer?.Render();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 try
                 {
@@ -153,6 +158,16 @@ namespace GoldFever.Core
             {
                 throw new GameException("Unable to load game.", ex);
             }
+        }
+
+        public void Pause()
+        {
+
+        }
+
+        public void Resume()
+        {
+
         }
     }
 }

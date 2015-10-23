@@ -4,7 +4,7 @@ using System;
 
 namespace GoldFever.Core.Model
 {
-    public class TrackModel
+    public sealed class TrackModel
     {
         public TrackType Type { get; set; }
         public Vector Position { get; set; }

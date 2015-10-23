@@ -67,8 +67,11 @@
     <Compile Include="Level\LevelManager.cs" />
     <Compile Include="Level\LevelMetrics.cs" />
     <Compile Include="Model\LevelModel.cs" />
+    <Compile Include="Model\ShipPortModel.cs" />
     <Compile Include="Model\TrackModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ship\BaseShip.cs" />
+    <Compile Include="Ship\ShipPort.cs" />
     <Compile Include="Track\BaseTrack.cs" />
     <Compile Include="Track\DefaultTrack.cs" />
     <Compile Include="Track\DropTrack.cs" />

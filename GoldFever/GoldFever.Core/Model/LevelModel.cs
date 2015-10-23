@@ -3,8 +3,9 @@ using Newtonsoft.Json;
 
 namespace GoldFever.Core.Model
 {
-    public class LevelModel
+    public sealed class LevelModel
     {
+        public ShipPortModel Port { get; set; }
         public TrackModel[] Tracks { get; set; }
     }
 }

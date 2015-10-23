@@ -45,6 +45,9 @@ namespace GoldFever.Core.Track
 
         public void Toggle()
         {
+            if (_cart != null)
+                return;
+
             _mode = (_mode == SwitchMode.Up 
                 ? SwitchMode.Down 
                 : SwitchMode.Up);
