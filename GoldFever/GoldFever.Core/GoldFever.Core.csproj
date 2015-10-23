@@ -52,6 +52,7 @@
     <Compile Include="GameException.cs" />
     <Compile Include="GameOptions.cs" />
     <Compile Include="GameOverException.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Generic\Direction.cs" />
     <Compile Include="Graphics\Terminal\Color.cs" />
     <Compile Include="Graphics\Terminal\CharInfo.cs" />

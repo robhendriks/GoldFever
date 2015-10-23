@@ -90,6 +90,10 @@
       <Project>{e1a161a0-3305-493a-bafd-5a10b26f7454}</Project>
       <Name>GoldFever.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GoldFever.UI\GoldFever.UI.csproj">
+      <Project>{ef9b1d38-4ec2-4cae-889d-c621c583524d}</Project>
+      <Name>GoldFever.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="GoldFever.ico" />

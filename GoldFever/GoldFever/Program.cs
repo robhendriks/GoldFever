@@ -1,6 +1,5 @@
-﻿using GoldFever.Core;
-using GoldFever.Core.Graphics.Terminal;
-using GoldFever.Core.Model;
+﻿using GoldFever.UI.Views;
+using GoldFever.UI.Views.Generic;
 using System;
 
 namespace GoldFever
@@ -9,15 +8,22 @@ namespace GoldFever
     {
         public static void Main(string[] args)
         {
-            var game = new Game(new GameOptions()
+            var view = new OptionListView("Hello, world!", "Lorem ipsum dolor sit amet.");
+            view.Items.AddRange(new OptionListViewItem[]
             {
-                ContentPath = "GoldFever.Content"
+                new OptionListViewItem("1"),
+                new OptionListViewItem("2"),
+                new OptionListViewItem("3"),
+                new OptionListViewItem("4"),
+                new OptionListViewItem("5"),
+                new OptionListViewItem("6"),
+                new OptionListViewItem("7"),
+                new OptionListViewItem("8"),
+                new OptionListViewItem("9"),
+                new OptionListViewItem("10"),
             });
 
-            game.Renderer = new TerminalRenderer(game);
-            game.Run();
-
-            Console.ReadKey();
+            view.Show();
         }
     }
 }

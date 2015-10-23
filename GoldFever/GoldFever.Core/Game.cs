@@ -20,6 +20,13 @@ namespace GoldFever.Core
             get { return _running; }
         }
 
+        private GameState _state;
+
+        public GameState State
+        {
+            get { return _state; }
+        }
+
         private GameOptions _options;
 
         public GameOptions Options
@@ -61,6 +68,7 @@ namespace GoldFever.Core
             if (options == null)
                 throw new ArgumentNullException("options");
 
+            _state = GameState.Paused;
             _running = false;
             _options = options;
             _score = 0;
@@ -81,6 +89,11 @@ namespace GoldFever.Core
 
         private void Loop()
         {
+            if (_state == GameState.Resumed)
+                return;
+
+            _state = GameState.Resumed;
+
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
 
@@ -99,12 +112,14 @@ namespace GoldFever.Core
                 {
                     var info = Console.ReadKey(true);
 
-                    if (info.Key == ConsoleKey.G)
-                        GodMode = !GodMode;
-
-                    foreach (var actor in _levelManager.Level.Switches)
-                        if (actor.Key == info.Key)
-                            actor.Toggle();
+                    if (info.Key == ConsoleKey.Escape)
+                        continue; // handle
+                    else
+                    {
+                        foreach (var actor in _levelManager.Level.Switches)
+                            if (actor.Key == info.Key)
+                                actor.Toggle();
+                    }
 
                     Renderer?.Render();
                 }
@@ -158,16 +173,6 @@ namespace GoldFever.Core
             {
                 throw new GameException("Unable to load game.", ex);
             }
-        }
-
-        public void Pause()
-        {
-
-        }
-
-        public void Resume()
-        {
-
         }
     }
 }
