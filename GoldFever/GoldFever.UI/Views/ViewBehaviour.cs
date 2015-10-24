@@ -4,6 +4,7 @@ namespace GoldFever.UI.Views
 {
     public enum ViewBehaviour
     {
-        Default
+        Default,
+        Ignore
     }
 }

@@ -1,6 +1,5 @@
 ﻿using GoldFever.Core;
-using GoldFever.UI.Views;
-using GoldFever.UI.Views.Generic;
+using GoldFever.Core.Graphics.Terminal;
 using System;
 
 namespace GoldFever
@@ -13,6 +12,12 @@ namespace GoldFever
             {
                 ContentPath = "GoldFever.Content"
             });
+
+            game.Renderer = new TerminalRenderer(game);
+            game.Setup();
+
+            var view = new MenuView(game);
+            view.Show();
         }
     }
 }

@@ -81,5 +81,11 @@ namespace GoldFever.Core.Ship
         {
             _ships.Add(new BaseShip(this));
         }
+
+        public void Reset()
+        {
+            _ships.Clear();
+            _loading = null;
+        }
     }
 }

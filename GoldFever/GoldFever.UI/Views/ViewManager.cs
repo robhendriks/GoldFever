@@ -91,6 +91,8 @@ namespace GoldFever.UI.Views
             }
 
             _active = false;
+
+            Console.Clear();
         }
 
         public void Invalidate()
@@ -98,7 +100,7 @@ namespace GoldFever.UI.Views
             Draw();
         }
 
-        public void Back()
+        public void Back(bool remember = true)
         {
             if (Current == null)
                 return;
@@ -110,6 +112,17 @@ namespace GoldFever.UI.Views
             }
             else if (Current.CanLeave() && Previous == null)
                 Current = null;
+
+            if (!remember)
+                _previous = null;
+        }
+
+        public void Shutdown()
+        {
+            if (!_active)
+                return;
+
+            _active = false;
         }
 
         #endregion

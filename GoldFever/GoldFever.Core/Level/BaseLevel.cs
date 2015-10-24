@@ -194,8 +194,8 @@ namespace GoldFever.Core.Level
         }
 
         private Random rand = new Random();
-        private int maxSteps = 2,
-                    steps = 4,
+        private int maxSteps = 8,
+                    steps = 0,
                     maxAmount = 24,
                     amount = 0;
 
@@ -205,17 +205,17 @@ namespace GoldFever.Core.Level
 
             #region Debug
 
-            if (steps < maxSteps)
-                steps++;
-            else if (amount < maxAmount)
+            if (steps >= maxSteps && amount < maxAmount)
             {
                 var c1 = new BaseCart();
-                c1.Current = _depots[0]; //[rand.Next(0, 3)];
+                c1.Current = _depots[rand.Next(0, 3)];
                 _carts.Add(c1);
 
                 steps = 0;
                 amount++;
             }
+            else
+                steps++;
 
             #endregion
 
@@ -232,6 +232,12 @@ namespace GoldFever.Core.Level
             // Clean up
             foreach (var cart in dispose)
                 _carts.Remove(cart);
+        }
+
+        public void Clear()
+        {
+            Carts.Clear();
+            Port.Reset();
         }
     }
 }

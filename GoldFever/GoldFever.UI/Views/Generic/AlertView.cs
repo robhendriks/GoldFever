@@ -10,6 +10,7 @@ namespace GoldFever.UI.Views.Generic
         #region Members
 
         private Result[] results;
+        private bool dismiss;
 
         #endregion
 
@@ -56,6 +57,8 @@ namespace GoldFever.UI.Views.Generic
         public AlertView(string title, string text, Buttons buttons = Buttons.OK)
             : base(title, text)
         {
+            dismiss = false;
+
             _buttons = buttons;
             _selectedIndex = 0;
 
@@ -121,9 +124,18 @@ namespace GoldFever.UI.Views.Generic
             }
         }
 
+        public void Dismiss()
+        {
+            if (!dismiss)
+            {
+                dismiss = true;
+                ViewManager.GetInstance().Back(false);
+            }
+        }
+
         public override bool CanLeave()
         {
-            return false;
+            return dismiss;
         }
 
         #endregion
