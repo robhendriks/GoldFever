@@ -100,14 +100,16 @@ namespace GoldFever.UI.Views
 
         public void Back()
         {
-            if (Current == null || Previous == null)
+            if (Current == null)
                 return;
 
-            if (Current.CanLeave())
+            if (Current.CanLeave() && Previous != null)
             {
                 Current = Previous;
                 Invalidate();
             }
+            else if (Current.CanLeave() && Previous == null)
+                Current = null;
         }
 
         #endregion

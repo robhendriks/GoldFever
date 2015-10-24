@@ -106,11 +106,6 @@ namespace GoldFever.UI.Views.Generic
             }
         }
 
-        public override bool CanLeave()
-        {
-            return false;
-        }
-
         #endregion
 
 

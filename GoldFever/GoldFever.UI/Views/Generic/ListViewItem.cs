@@ -2,7 +2,7 @@
 
 namespace GoldFever.UI.Views.Generic
 {
-    public class ListViewItem<K, V>
+    public abstract class ListViewItem<K, V>
     {
         #region Properties
 

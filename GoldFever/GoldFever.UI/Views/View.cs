@@ -4,7 +4,7 @@ using Color = System.ConsoleColor;
 
 namespace GoldFever.UI.Views
 {
-    public class View
+    public class View : IView
     {
         #region Properties
 
@@ -71,7 +71,7 @@ namespace GoldFever.UI.Views
             Invalidate();
         }
 
-        protected void Invalidate()
+        public void Invalidate()
         {
             ViewManager.GetInstance().Invalidate();
         }
@@ -146,7 +146,7 @@ namespace GoldFever.UI.Views
 
         #region Static methods
 
-        protected static void WriteLine(string input, bool inverted = false, int padding = -48)
+        public static void WriteLine(string input, bool inverted = false, int padding = -48)
         {
             WriteLine(input,
                 (inverted ? Color.Black : Color.Gray),
@@ -154,7 +154,7 @@ namespace GoldFever.UI.Views
                 padding);
         }
 
-        protected static void WriteLine(string input, Color foreground, Color background, int padding = -48)
+        public static void WriteLine(string input, Color foreground, Color background, int padding = -48)
         {
             string[] lines = input.Split('\n');
             string format = (padding < 0 ? $"{{0,{padding}}}" : "{0}");
