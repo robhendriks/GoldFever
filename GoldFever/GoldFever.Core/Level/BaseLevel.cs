@@ -59,6 +59,13 @@ namespace GoldFever.Core.Level
             get { return _carts; }
         }
 
+        private Spawner _spawner;
+
+        public Spawner Spawner
+        {
+            get { return _spawner; }
+        }
+
         public BaseLevel(LevelManager manager, LevelModel data)
         {
             if(manager == null)
@@ -71,6 +78,7 @@ namespace GoldFever.Core.Level
             _port = new ShipPort(this, data.Port);
             _tracks = TrackFactory.GetInstance().Create(data);
             _carts = new List<BaseCart>();
+            _spawner = new Spawner(this);
 
             Initialize();
         }
@@ -193,11 +201,11 @@ namespace GoldFever.Core.Level
             return results.ToArray();
         }
 
-        private Random rand = new Random();
-        private int maxSteps = 8,
-                    steps = 0,
-                    maxAmount = 24,
-                    amount = 0;
+        //private Random rand = new Random();
+        //private int maxSteps = 8,
+        //            steps = 0,
+        //            maxAmount = 24,
+        //            amount = 0;
 
         public void Update()
         {
@@ -205,20 +213,21 @@ namespace GoldFever.Core.Level
 
             #region Debug
 
-            if (steps >= maxSteps && amount < maxAmount)
-            {
-                var c1 = new BaseCart();
-                c1.Current = _depots[0]; //[rand.Next(0, 3)];
-                _carts.Add(c1);
+            //if (steps >= maxSteps && amount < maxAmount)
+            //{
+            //    var c1 = new BaseCart();
+            //    c1.Current = _depots[0]; //[rand.Next(0, 3)];
+            //    _carts.Add(c1);
 
-                steps = 0;
-                amount++;
-            }
-            else
-                steps++;
+            //    steps = 0;
+            //    amount++;
+            //}
+            //else
+            //    steps++;
 
             #endregion
 
+            _spawner.Update();
             _port.Update();
 
             foreach (var cart in _carts)
@@ -241,6 +250,8 @@ namespace GoldFever.Core.Level
 
             _carts.Clear();
             _port.Clear();
+
+            _spawner.Reset();
         }
     }
 }

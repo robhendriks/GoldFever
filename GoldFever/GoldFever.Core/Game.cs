@@ -156,6 +156,8 @@ namespace GoldFever.Core
 
             Renderer?.Render();
 
+            // Please dear lord, forgive my sins.
+            // Thau shall only start thy threads once.
             if (tmp != GameState.GameOver)
             {
                 inputThread.Start();
@@ -169,8 +171,6 @@ namespace GoldFever.Core
                 _state = GameState.Idle;
             else if (_state == GameState.Idle)
                 _state = GameState.Playing;
-
-            // TODO: Handle GameOver
         }
 
         private void HandleInput()
