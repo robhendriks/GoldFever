@@ -14,7 +14,7 @@ namespace GoldFever
             });
 
             game.Renderer = new TerminalRenderer(game);
-            game.Setup();
+            game.Load();
 
             var view = new MenuView(game);
             view.Show();

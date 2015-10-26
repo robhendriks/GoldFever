@@ -91,8 +91,9 @@ namespace GoldFever.UI.Views
             }
 
             _active = false;
-
             Console.Clear();
+
+            OnClosed();
         }
 
         public void Invalidate()
@@ -117,7 +118,7 @@ namespace GoldFever.UI.Views
                 _previous = null;
         }
 
-        public void Shutdown()
+        public void Close()
         {
             if (!_active)
                 return;
@@ -138,8 +139,17 @@ namespace GoldFever.UI.Views
             Loop();
         }
 
+        private void OnClosed()
+        {
+            if (Closed != null)
+                Closed();
+        }
+
         public event CurrentChangedHandler CurrentChanged;
+        public event ClosedHandler Closed;
+
         public delegate void CurrentChangedHandler();
+        public delegate void ClosedHandler();
 
         #endregion
 

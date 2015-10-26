@@ -49,8 +49,13 @@ namespace GoldFever
 
         private void Play()
         {
-            ViewManager.GetInstance().Shutdown();
-            game.Resume();
+            var manager = ViewManager.GetInstance();
+            manager.Closed += () =>
+            {
+                game.Resume();
+            };
+
+            manager.Close();
         }
 
         private void Quit()
@@ -63,7 +68,7 @@ namespace GoldFever
             alert.Selected += (sender, e) =>
             {
                 if (e.Result == AlertViewResult.Yes)
-                    ViewManager.GetInstance().Shutdown();
+                    ViewManager.GetInstance().Close();
                 else
                     alert.Dismiss();
             };

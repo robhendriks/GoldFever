@@ -208,7 +208,7 @@ namespace GoldFever.Core.Level
             if (steps >= maxSteps && amount < maxAmount)
             {
                 var c1 = new BaseCart();
-                c1.Current = _depots[rand.Next(0, 3)];
+                c1.Current = _depots[0]; //[rand.Next(0, 3)];
                 _carts.Add(c1);
 
                 steps = 0;
@@ -236,8 +236,11 @@ namespace GoldFever.Core.Level
 
         public void Clear()
         {
-            Carts.Clear();
-            Port.Reset();
+            foreach (var track in _tracks)
+                track.Cart = null;
+
+            _carts.Clear();
+            _port.Clear();
         }
     }
 }

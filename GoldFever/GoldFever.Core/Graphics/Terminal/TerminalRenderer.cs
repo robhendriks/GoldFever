@@ -24,13 +24,20 @@ namespace GoldFever.Core.Graphics.Terminal
 
             var cur = game.Level.Port.Loading;
 
-            string score = $"{game.Score}".PadLeft(3, '0'),
-                   carts = $"{game.Level.Carts.Count}".PadLeft(3, '0'),
-                   ship = (cur != null ? $"{cur.Size}/{BaseShip.Capacity}" : "n/a");
+            if (game.State != GameState.Idle)
+            {
+                string score = $"{game.Score}".PadLeft(3, '0'),
+                       carts = $"{game.Level.Carts.Count}".PadLeft(3, '0'),
+                       ship = (cur != null ? $"{cur.Size}/{BaseShip.Capacity}" : "n/a");
 
-            buffer.Write($"Score: {score}", OffsetX, 2, info);
-            buffer.Write($"Carts: {carts}", OffsetX, 3, info);
-            buffer.Write($"Ship: {ship}", OffsetX, 4, info);
+                buffer.Write($"Score: {score}", OffsetX, 2, info);
+                buffer.Write($"Carts: {carts}", OffsetX, 3, info);
+                buffer.Write($"Ship: {ship}", OffsetX, 4, info);
+            }
+            else
+            {
+                buffer.Write("PAUSED", OffsetX, 2, info);
+            }
         }
 
         Random r = new Random();

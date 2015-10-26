@@ -44,6 +44,7 @@ namespace GoldFever.Core.Track
         public BaseCart Cart
         {
             get { return _cart; }
+            set { _cart = value; }
         }
 
         public bool Occupied

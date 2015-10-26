@@ -8,16 +8,21 @@ namespace GoldFever.Core
 {
     public sealed class Game
     {
-        public static bool GodMode = false;
+        #region Private fields
 
         private Thread inputThread;
         private Thread logicThread;
 
-        private bool _running;
+        #endregion
 
-        public bool Running
+
+        #region Properties
+
+        private bool _ready;
+
+        public bool Ready
         {
-            get { return _running; }
+            get { return _ready; }
         }
 
         private GameState _state;
@@ -25,6 +30,14 @@ namespace GoldFever.Core
         public GameState State
         {
             get { return _state; }
+            set
+            {
+                var tmp = _state;
+                _state = value;
+
+                if(_state != tmp)
+                    OnGameStateChanged();
+            }
         }
 
         private GameOptions _options;
@@ -63,28 +76,23 @@ namespace GoldFever.Core
 
         public IRenderer Renderer { get; set; }
 
+        #endregion
+
+
+        #region Constructors
+
         public Game(GameOptions options)
         {
             if (options == null)
                 throw new ArgumentNullException("options");
 
+            _ready = false;
             _options = options;
 
-            NewGame();
             Initialize();
         }
 
-        private void NewGame(bool clear = false)
-        {
-            _state = GameState.Paused;
-            _running = false;
-            _score = 0;
-
-            if (!clear)
-                return;
-
-            _levelManager.Level.Clear();
-        }
+        #endregion
 
         private void Initialize()
         {
@@ -92,43 +100,97 @@ namespace GoldFever.Core
             _levelManager = new LevelManager(this);
         }
 
-        private void Load()
+        private void Reset()
         {
-            _levelManager.Load();
+            // inputThread?.Abort();
+            // logicThread?.Abort();
+
+            _score = 0;
+            _levelManager.Level.Clear();
         }
 
-        private void Loop()
+        public void Load()
         {
-            if (_state == GameState.Resumed)
+            if (_ready)
                 return;
 
-            _state = GameState.Resumed;
+            try
+            {
+                _levelManager.Load();
+            }
+            catch (GameException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new GameException("Unable to load game.", ex);
+            }
 
+            _ready = true;
+        }
+
+        public void Pause()
+        {
+            if (_state == GameState.Idle)
+                return;
+
+            State = GameState.Idle;
+        }
+
+        public void Resume()
+        {
+            var tmp = _state;
+
+            if (_state == GameState.Playing)
+                return;
+
+            State = GameState.Playing;
+
+            // Start actual game
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
 
             inputThread = new Thread(HandleInput);
             logicThread = new Thread(HandleLogic);
 
-            inputThread.Start();
-            logicThread.Start();
+            Renderer?.Render();
+
+            if (tmp != GameState.GameOver)
+            {
+                inputThread.Start();
+                logicThread.Start();
+            }
+        }
+
+        private void Toggle()
+        {
+            if (_state == GameState.Playing)
+                _state = GameState.Idle;
+            else if (_state == GameState.Idle)
+                _state = GameState.Playing;
+
+            // TODO: Handle GameOver
         }
 
         private void HandleInput()
         {
-            while(_state == GameState.Resumed)
+            while(_state != GameState.GameOver)
             {
                 if (Console.KeyAvailable)
                 {
                     var info = Console.ReadKey(true);
 
                     if (info.Key == ConsoleKey.Escape)
-                        continue; // handle
+                        Toggle();
                     else
                     {
-                        foreach (var actor in _levelManager.Level.Switches)
-                            if (actor.Key == info.Key)
-                                actor.Toggle();
+                        if (_state != GameState.Idle)
+                        {
+                            foreach (var actor in _levelManager.Level.Switches)
+                                if (actor.Key == info.Key)
+                                    actor.Toggle();
+                        }
                     }
 
                     Renderer?.Render();
@@ -138,10 +200,11 @@ namespace GoldFever.Core
 
         private void HandleLogic()
         {
-            Renderer?.Render();
-
-            while (_state == GameState.Resumed)
+            while (_state != GameState.GameOver)
             {
+                if (_state == GameState.Idle)
+                    continue;
+
                 Renderer?.Render();
                 Thread.Sleep(500);
 
@@ -161,54 +224,29 @@ namespace GoldFever.Core
             _levelManager.Level.Update();
         }
 
-        public void Setup()
-        {
-            if (_running)
-                throw new InvalidOperationException("Game already running.");
-
-            _running = true;
-
-            try
-            {
-                Load();
-            }
-            catch(GameException ex)
-            {
-                throw ex;
-            }
-            catch(Exception ex)
-            {
-                throw new GameException("Unable to load game.", ex);
-            }
-        }
-
-        public void Resume()
-        {
-            if (_state == GameState.Resumed)
-                return;
-
-            NewGame();
-            Loop();
-        }
-
-        public void Pause()
-        {
-            if (_state == GameState.Paused)
-                return;
-        }
-
         #region Events
 
         private void OnGameOver()
         {
+            _state = GameState.GameOver;
+
+            Reset();
+
             if (GameOver != null)
                 GameOver(this);
+        }
 
-            _state = GameState.Ended;
+        private void OnGameStateChanged()
+        {
+            if (GameStateChanged != null)
+                GameStateChanged(this);
         }
 
         public event GameOverHandler GameOver;
+        public event GameStateChangedHandler GameStateChanged;
+
         public delegate void GameOverHandler(object sender);
+        public delegate void GameStateChangedHandler(object sender);
 
         #endregion
     }

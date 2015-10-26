@@ -6,6 +6,8 @@ namespace GoldFever.Core.Cart
     // test
     public sealed class BaseCart
     {
+        private bool firstTick;
+
         private BaseTrack _current;
 
         public BaseTrack Current
@@ -30,6 +32,7 @@ namespace GoldFever.Core.Cart
 
         public BaseCart()
         {
+            firstTick = true;
             _disposed = _empty = false;
         }
 
@@ -37,6 +40,11 @@ namespace GoldFever.Core.Cart
         {
             if (_disposed)
                 return;
+            else if(firstTick)
+            {
+                firstTick = false;
+                return;
+            }
 
             var cur = Current;
             var next = Current?.Next;
