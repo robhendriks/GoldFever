@@ -91,11 +91,11 @@ namespace GoldFever.UI.Views.Generic
             DrawItems();
         }
 
-        public override void Update(ConsoleKey key)
+        public override void Update(ConsoleKeyInfo info)
         {
-            base.Update(key);
+            base.Update(info);
 
-            switch (key)
+            switch (info.Key)
             {
                 case ConsoleKey.UpArrow:
                     SelectedIndex--; break;

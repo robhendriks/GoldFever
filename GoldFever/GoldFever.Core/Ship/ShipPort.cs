@@ -86,6 +86,8 @@ namespace GoldFever.Core.Ship
         {
             _ships.Clear();
             _loading = null;
+
+            Spawn();
         }
     }
 }

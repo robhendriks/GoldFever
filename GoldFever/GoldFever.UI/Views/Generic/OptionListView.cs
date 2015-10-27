@@ -26,11 +26,11 @@ namespace GoldFever.UI.Views.Generic
             Mode = SelectionMode.Multiple;
         }
 
-        public override void Update(ConsoleKey key)
+        public override void Update(ConsoleKeyInfo info)
         {
-            base.Update(key);
+            base.Update(info);
 
-            switch(key)
+            switch(info.Key)
             {
                 case ConsoleKey.Spacebar:
                     Select(); OnSelected(); break;

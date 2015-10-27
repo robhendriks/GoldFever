@@ -62,11 +62,11 @@ namespace GoldFever.UI.Views
             Current?.Draw();
         }
 
-        private void Update(ConsoleKey key)
+        private void Update(ConsoleKeyInfo info)
         {
             // TODO: Handle default keys
 
-            Current?.Update(key);
+            Current?.Update(info);
         }
 
         private void Loop()
@@ -87,7 +87,7 @@ namespace GoldFever.UI.Views
                 var info = Console.ReadKey();
 
                 Draw();
-                Update(info.Key);
+                Update(info);
             }
 
             _active = false;

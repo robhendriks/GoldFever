@@ -8,13 +8,8 @@ namespace GoldFever.Core
 {
     public sealed class Game
     {
-        #region Private fields
-
-        private Thread inputThread;
-        private Thread logicThread;
-
-        #endregion
-
+        private const int Second = 1000;
+        private const int Fps = Second / 15;
 
         #region Properties
 
@@ -102,9 +97,6 @@ namespace GoldFever.Core
 
         private void Reset()
         {
-            // inputThread?.Abort();
-            // logicThread?.Abort();
-
             _score = 0;
             _levelManager.Level.Clear();
         }
@@ -138,6 +130,7 @@ namespace GoldFever.Core
             State = GameState.Idle;
         }
 
+        int i = 0;
         public void Resume()
         {
             var tmp = _state;
@@ -151,18 +144,8 @@ namespace GoldFever.Core
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
 
-            inputThread = new Thread(HandleInput);
-            logicThread = new Thread(HandleLogic);
-
             Renderer?.Render();
-
-            // Please dear lord, forgive my sins.
-            // Thau shall only start thy threads once.
-            if (tmp != GameState.GameOver)
-            {
-                inputThread.Start();
-                logicThread.Start();
-            }
+            Loop();
         }
 
         private void Toggle()
@@ -173,55 +156,68 @@ namespace GoldFever.Core
                 _state = GameState.Playing;
         }
 
-        private void HandleInput()
+        private int ticks = 5,
+                    tick = 0;
+
+        private void Loop()
         {
             while(_state != GameState.GameOver)
             {
-                if (Console.KeyAvailable)
+                DoInput();
+
+                if (tick == ticks)
                 {
-                    var info = Console.ReadKey(true);
-
-                    if (info.Key == ConsoleKey.Escape)
-                        Toggle();
-                    else
-                    {
-                        if (_state != GameState.Idle)
-                        {
-                            foreach (var actor in _levelManager.Level.Switches)
-                                if (actor.Key == info.Key)
-                                    actor.Toggle();
-                        }
-                    }
-
-                    Renderer?.Render();
+                    DoLogic();
+                    tick = 0;
                 }
+                else
+                    tick++;
+
+                Thread.Sleep(Fps);
             }
         }
 
-        private void HandleLogic()
+        private void DoInput()
         {
-            while (_state != GameState.GameOver)
+            if (!Console.KeyAvailable)
+                return;
+
+            var info = Console.ReadKey(true);
+
+            if(_state == GameState.Playing)
             {
-                if (_state == GameState.Idle)
-                    continue;
-
-                Renderer?.Render();
-                Thread.Sleep(500);
-
-                try
-                {
-                    Update();
-                }
-                catch (GameOverException ex)
-                {
-                    OnGameOver();
-                }
+                foreach (var actor in _levelManager.Level.Switches)
+                    if (actor.Key == info.Key)
+                        actor.Toggle();
             }
+            else if(_state == GameState.Idle)
+            {
+                if (info.Key == ConsoleKey.Escape)
+                    Toggle();
+            }
+
+            Renderer?.Render();
+        }
+
+        private void DoLogic()
+        {
+            if (_state != GameState.Playing)
+                return;
+
+            Update();
+            Renderer?.Render();
         }
 
         private void Update()
         {
-            _levelManager.Level.Update();
+            try
+            {
+                _levelManager.Level.Update();
+            }
+            catch (GameOverException ex)
+            {
+                OnGameOver();
+            }
         }
 
         #region Events

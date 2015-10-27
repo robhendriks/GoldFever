@@ -26,7 +26,7 @@ namespace GoldFever
             Items.AddRange(new DefaultListViewItem[]
             {
                 new DefaultListViewItem(0, "Play"),
-                new DefaultListViewItem(1, "Quit"),
+                new DefaultListViewItem(1, "Quit")
             });
 
             Selected += MenuView_Selected;
@@ -34,7 +34,7 @@ namespace GoldFever
 
         private void Game_GameOver(object sender)
         {
-            var view = new View("Game Over", "Aww snap!");
+            var view = new View("Game Over", "Press ESC to return.");
             view.Show();
         }
 
@@ -50,12 +50,9 @@ namespace GoldFever
         private void Play()
         {
             var manager = ViewManager.GetInstance();
-            manager.Closed += () =>
-            {
-                game.Resume();
-            };
-
             manager.Close();
+
+            game.Resume();
         }
 
         private void Quit()

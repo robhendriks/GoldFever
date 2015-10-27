@@ -1,5 +1,6 @@
 ﻿using GoldFever.Core;
 using GoldFever.Core.Graphics.Terminal;
+using GoldFever.UI.Views.Generic;
 using System;
 
 namespace GoldFever

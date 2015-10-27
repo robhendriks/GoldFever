@@ -49,6 +49,7 @@
     <Compile Include="Views\Generic\AlertViewResult.cs" />
     <Compile Include="Views\Generic\DefaultListItem.cs" />
     <Compile Include="Views\Generic\DefaultListView.cs" />
+    <Compile Include="Views\Generic\InputView.cs" />
     <Compile Include="Views\Generic\ListView.cs" />
     <Compile Include="Views\Generic\ListViewEventArgs.cs" />
     <Compile Include="Views\Generic\ListViewItem.cs" />

@@ -201,31 +201,9 @@ namespace GoldFever.Core.Level
             return results.ToArray();
         }
 
-        //private Random rand = new Random();
-        //private int maxSteps = 8,
-        //            steps = 0,
-        //            maxAmount = 24,
-        //            amount = 0;
-
         public void Update()
         {
             var dispose = new List<BaseCart>();
-
-            #region Debug
-
-            //if (steps >= maxSteps && amount < maxAmount)
-            //{
-            //    var c1 = new BaseCart();
-            //    c1.Current = _depots[0]; //[rand.Next(0, 3)];
-            //    _carts.Add(c1);
-
-            //    steps = 0;
-            //    amount++;
-            //}
-            //else
-            //    steps++;
-
-            #endregion
 
             _spawner.Update();
             _port.Update();

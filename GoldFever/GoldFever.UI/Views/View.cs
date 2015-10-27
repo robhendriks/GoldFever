@@ -93,13 +93,13 @@ namespace GoldFever.UI.Views
             DrawText();
         }
 
-        public virtual void Update(ConsoleKey key)
+        public virtual void Update(ConsoleKeyInfo info)
         {
             var manager = ViewManager.GetInstance();
 
             if (Behaviour == ViewBehaviour.Default)
             {
-                switch (key)
+                switch (info.Key)
                 {
                     case ConsoleKey.Escape | ConsoleKey.Backspace:
                         manager.Back(); break;
@@ -156,6 +156,8 @@ namespace GoldFever.UI.Views
 
         public static void WriteLine(string input, Color foreground, Color background, int padding = -48)
         {
+            input = input ?? "";
+
             string[] lines = input.Split('\n');
             string format = (padding < 0 ? $"{{0,{padding}}}" : "{0}");
 
