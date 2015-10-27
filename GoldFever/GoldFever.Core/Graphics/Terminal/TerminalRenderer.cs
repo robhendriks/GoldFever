@@ -30,13 +30,13 @@ namespace GoldFever.Core.Graphics.Terminal
                        carts = $"{game.Level.Carts.Count}".PadLeft(3, '0'),
                        ship = (cur != null ? $"{cur.Size}/{BaseShip.Capacity}" : "n/a");
 
-                buffer.Write($"Score: {score}", OffsetX, 2, info);
-                buffer.Write($"Carts: {carts}", OffsetX, 3, info);
-                buffer.Write($"Ship: {ship}", OffsetX, 4, info);
+                buffer.Write($"Punten: {score}", OffsetX, 2, info);
+                buffer.Write($"Karren: {carts}", OffsetX, 3, info);
+                buffer.Write($"Boten: {ship}", OffsetX, 4, info);
             }
             else
             {
-                buffer.Write("PAUSED", OffsetX, 2, info);
+                buffer.Write("Gepauzeerd", OffsetX, 2, info);
             }
         }
 

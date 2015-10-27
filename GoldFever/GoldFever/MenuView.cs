@@ -10,7 +10,7 @@ namespace GoldFever
         private Game game;
 
         public MenuView(Game game)
-            : base("GoldFever", "Welcome, please select an item.")
+            : base("Goudkoorts", "Selecteer één item:")
         {
             Behaviour = ViewBehaviour.Ignore;
 
@@ -25,8 +25,8 @@ namespace GoldFever
 
             Items.AddRange(new DefaultListViewItem[]
             {
-                new DefaultListViewItem(0, "Play"),
-                new DefaultListViewItem(1, "Quit")
+                new DefaultListViewItem(0, "Spelen"),
+                new DefaultListViewItem(1, "Afsluiten")
             });
 
             Selected += MenuView_Selected;
@@ -34,7 +34,7 @@ namespace GoldFever
 
         private void Game_GameOver(object sender)
         {
-            var view = new View("Game Over", "Press ESC to return.");
+            var view = new View("Spel Afgelopen", "Druk op de escape toets.");
             view.Show();
         }
 
@@ -58,8 +58,8 @@ namespace GoldFever
         private void Quit()
         {
             var alert = new AlertView(
-                "GoldFever",
-                "Are you sure?",
+                "Goudkoorts",
+                "Weet je zeker dat je wilt afsluiten?",
                 AlertViewButtons.YesNo);
 
             alert.Selected += (sender, e) =>

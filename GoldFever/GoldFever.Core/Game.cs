@@ -130,7 +130,6 @@ namespace GoldFever.Core
             State = GameState.Idle;
         }
 
-        int i = 0;
         public void Resume()
         {
             var tmp = _state;
@@ -184,16 +183,14 @@ namespace GoldFever.Core
 
             var info = Console.ReadKey(true);
 
-            if(_state == GameState.Playing)
+            if (info.Key == ConsoleKey.Escape)
+                Toggle();
+            else
+            if (_state == GameState.Playing)
             {
                 foreach (var actor in _levelManager.Level.Switches)
                     if (actor.Key == info.Key)
                         actor.Toggle();
-            }
-            else if(_state == GameState.Idle)
-            {
-                if (info.Key == ConsoleKey.Escape)
-                    Toggle();
             }
 
             Renderer?.Render();
