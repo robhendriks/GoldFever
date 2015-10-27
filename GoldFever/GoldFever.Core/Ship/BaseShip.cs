@@ -4,6 +4,8 @@ namespace GoldFever.Core.Ship
 {
     public class BaseShip
     {
+        #region Properties
+
         public const int Capacity = 8;
         public const int Width = 3;
 
@@ -60,6 +62,11 @@ namespace GoldFever.Core.Ship
             get { return _disposed; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public BaseShip(ShipPort port)
         {
             if (port == null)
@@ -70,6 +77,11 @@ namespace GoldFever.Core.Ship
             _size = 0;
             _loading = _full = _disposed = false;
         }
+
+        #endregion
+
+
+        #region Methods
 
         protected void SizeChanged()
         {
@@ -110,5 +122,7 @@ namespace GoldFever.Core.Ship
                 _loading = true;
             }
         }
+
+        #endregion
     }
 }

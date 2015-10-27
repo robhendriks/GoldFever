@@ -4,6 +4,8 @@ namespace GoldFever.Core.Level
 {
     public class LevelLoadException : GameException
     {
+        #region Constructors
+
         public LevelLoadException()
             : base()
         {
@@ -21,5 +23,7 @@ namespace GoldFever.Core.Level
         {
 
         }
+
+        #endregion
     }
 }

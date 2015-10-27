@@ -8,6 +8,8 @@ namespace GoldFever.Core.Track
 {
     public abstract class BaseTrack
     {
+        #region Properties
+
         protected Vector _position;
 
         public Vector Position
@@ -52,11 +54,21 @@ namespace GoldFever.Core.Track
             get { return (_cart != null); }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public BaseTrack(Vector position, Direction direction)
         {
             _position = position;
             _direction = direction;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public virtual bool Link(BaseLevel level, out BaseTrack[] results)
         {
@@ -111,6 +123,9 @@ namespace GoldFever.Core.Track
         {
             return Color.ForegroundWhite | Color.BackgroundDarkRed;
         }
+
+        #endregion
+
 
         #region Events
 

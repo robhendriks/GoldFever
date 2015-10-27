@@ -6,7 +6,14 @@ namespace GoldFever.Core.Level
 {
     public sealed class LevelManager
     {
+        #region Constants
+
         private const string Path = "Level.json";
+
+        #endregion
+
+
+        #region Properties
 
         private Game _game;
 
@@ -22,6 +29,11 @@ namespace GoldFever.Core.Level
             get { return _level; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public LevelManager(Game game)
         {
             if (game == null)
@@ -29,6 +41,11 @@ namespace GoldFever.Core.Level
 
             _game = game;
         }
+
+        #endregion
+
+
+        #region Methods
 
         private void Load(LevelModel data)
         {
@@ -53,5 +70,7 @@ namespace GoldFever.Core.Level
                 throw new LevelLoadException("Unable to load level.", ex);
             }
         }
+
+        #endregion
     }
 }

@@ -7,7 +7,14 @@ namespace GoldFever
 {
     public sealed class MenuView : DefaultListView
     {
+        #region Private Fields
+
         private Game game;
+
+        #endregion
+
+
+        #region Constructors
 
         public MenuView(Game game)
             : base("Goudkoorts", "Selecteer één item:")
@@ -18,6 +25,11 @@ namespace GoldFever
 
             Initialize();
         }
+
+        #endregion
+
+
+        #region Methods
 
         private void Initialize()
         {
@@ -30,12 +42,6 @@ namespace GoldFever
             });
 
             Selected += MenuView_Selected;
-        }
-
-        private void Game_GameOver(object sender)
-        {
-            var view = new View("Spel Afgelopen", "Druk op de escape toets.");
-            view.Show();
         }
 
         private void MenuView_Selected(object sender, ListViewEventArgs<int, string> e)
@@ -72,5 +78,18 @@ namespace GoldFever
 
             alert.Show();
         }
+
+        #endregion
+
+
+        #region Events
+
+        private void Game_GameOver(object sender)
+        {
+            var view = new View("Spel Afgelopen", "Druk op de escape toets.");
+            view.Show();
+        }
+
+        #endregion
     }
 }

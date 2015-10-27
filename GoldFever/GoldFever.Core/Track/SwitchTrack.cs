@@ -6,8 +6,15 @@ namespace GoldFever.Core.Track
 {
     public abstract class SwitchTrack : BaseTrack
     {
+        #region Constants
+
         protected const byte CharUp = 24,
                              CharDown = 25;
+
+        #endregion
+
+
+        #region Properties
 
         protected ConsoleKey _key;
 
@@ -27,7 +34,7 @@ namespace GoldFever.Core.Track
         {
             get
             {
-                switch(_mode)
+                switch (_mode)
                 {
                     default: return -1;
                     case SwitchMode.Up: return 0;
@@ -36,6 +43,11 @@ namespace GoldFever.Core.Track
             }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public SwitchTrack(Vector position, Direction direction, ConsoleKey key)
             : base(position, direction)
         {
@@ -43,13 +55,18 @@ namespace GoldFever.Core.Track
             _mode = SwitchMode.Down;
         }
 
+        #endregion
+
+
+        #region Methods
+
         public void Toggle()
         {
             if (_cart != null)
                 return;
 
-            _mode = (_mode == SwitchMode.Up 
-                ? SwitchMode.Down 
+            _mode = (_mode == SwitchMode.Up
+                ? SwitchMode.Down
                 : SwitchMode.Up);
         }
 
@@ -67,5 +84,7 @@ namespace GoldFever.Core.Track
         {
             return Color.ForegroundRed | Color.BackgroundDarkRed;
         }
+
+        #endregion
     }
 }

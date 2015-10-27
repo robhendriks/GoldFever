@@ -4,15 +4,32 @@ namespace GoldFever.Core.Generic
 {
     public struct Vector
     {
+        #region Static Fields
+
         private static Vector emptyVector = new Vector(-1, -1);
+
+        #endregion
+
+
+        #region Static Properties
 
         public static Vector Empty
         {
             get { return emptyVector; }
         }
 
+        #endregion
+
+
+        #region Properties
+
         public int X { get; set; }
         public int Y { get; set; }
+
+        #endregion
+
+
+        #region Constructors
 
         public Vector(int x, int y)
         {
@@ -24,6 +41,11 @@ namespace GoldFever.Core.Generic
         {
             X = Y = value;
         }
+
+        #endregion
+
+
+        #region Methods
 
         public bool Equals(Vector other)
         {
@@ -59,5 +81,7 @@ namespace GoldFever.Core.Generic
                     return new Vector(X - 1, Y);
             }
         }
+
+        #endregion
     }
 }

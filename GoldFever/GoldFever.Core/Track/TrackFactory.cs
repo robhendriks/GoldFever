@@ -1,15 +1,19 @@
 ﻿using GoldFever.Core.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoldFever.Core.Track
 {
     public sealed class TrackFactory
     {
+        #region Static fields
+
         private static TrackFactory _instance;
+
+        #endregion
+
+
+        #region Properties
 
         private Dictionary<TrackType, Type> _bindings;
 
@@ -17,6 +21,11 @@ namespace GoldFever.Core.Track
         {
             get { return _bindings; }
         }
+
+        #endregion
+
+
+        #region Constructors
 
         private TrackFactory()
         {
@@ -30,6 +39,11 @@ namespace GoldFever.Core.Track
             _bindings.Add(TrackType.Drop, typeof(DropTrack));
             _bindings.Add(TrackType.Hold, typeof(HoldTrack));
         }
+
+        #endregion
+
+
+        #region Methods
 
         public BaseTrack Create(TrackModel data)
         {
@@ -66,9 +80,16 @@ namespace GoldFever.Core.Track
             return results.ToArray();
         }
 
+        #endregion
+
+
+        #region Static Methods
+
         public static TrackFactory GetInstance()
         {
             return _instance ?? (_instance = new TrackFactory());
         }
+
+        #endregion
     }
 }

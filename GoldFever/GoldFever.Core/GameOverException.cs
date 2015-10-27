@@ -4,6 +4,8 @@ namespace GoldFever.Core
 {
     public class GameOverException : GameException
     {
+        #region Constructors
+
         public GameOverException()
             : base()
         {
@@ -21,5 +23,7 @@ namespace GoldFever.Core
         {
 
         }
+
+        #endregion
     }
 }

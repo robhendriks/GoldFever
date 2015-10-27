@@ -8,8 +8,13 @@ namespace GoldFever.Core
 {
     public sealed class Game
     {
+        #region Constants
+
         private const int Second = 1000;
         private const int Fps = Second / 15;
+
+        #endregion
+
 
         #region Properties
 
@@ -88,6 +93,9 @@ namespace GoldFever.Core
         }
 
         #endregion
+
+
+        #region Methods
 
         private void Initialize()
         {
@@ -216,6 +224,9 @@ namespace GoldFever.Core
                 OnGameOver();
             }
         }
+
+        #endregion
+
 
         #region Events
 

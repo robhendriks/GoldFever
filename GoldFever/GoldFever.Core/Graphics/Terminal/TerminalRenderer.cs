@@ -5,17 +5,34 @@ namespace GoldFever.Core.Graphics.Terminal
 {
     public sealed class TerminalRenderer : IRenderer
     {
+        #region Constants
+
         const int OffsetX = 4,
                   OffsetY = 8;
 
+        #endregion
+
+
+        #region Private Fields
+
         private Game game;
         private DoubleBuffer buffer;
+
+        #endregion
+
+
+        #region Constructors
 
         public TerminalRenderer(Game game)
         {
             this.game = game;
             this.buffer = DoubleBuffer.GetInstance();
         }
+
+        #endregion
+
+
+        #region Methods
 
         private void RenderUI()
         {
@@ -100,6 +117,8 @@ namespace GoldFever.Core.Graphics.Terminal
             CharInfo info;
             int x, y;
 
+            #region Tracks
+
             foreach(var track in game.Level.Tracks)
             {
                 x = OffsetX + (track.X * 2);
@@ -111,6 +130,8 @@ namespace GoldFever.Core.Graphics.Terminal
 
                 buffer.Write(x, y, 2, info);
             }
+
+            #endregion
         }
 
         private void RenderCarts()
@@ -121,6 +142,8 @@ namespace GoldFever.Core.Graphics.Terminal
             };
 
             int x, y;
+
+            #region Carts
 
             foreach (var cart in game.Level.Carts)
             {
@@ -134,6 +157,8 @@ namespace GoldFever.Core.Graphics.Terminal
                 
                 buffer.Write(x, y, 2, info);
             }
+
+            #endregion
         }
 
         public void Render()
@@ -147,5 +172,7 @@ namespace GoldFever.Core.Graphics.Terminal
 
             buffer.Draw();
         }
+
+        #endregion
     }
 }

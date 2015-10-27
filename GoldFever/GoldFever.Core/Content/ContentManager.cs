@@ -7,12 +7,19 @@ namespace GoldFever.Core.Content
 {
     public sealed class ContentManager
     {
+        #region Properties
+
         private string _path;
 
         public string Path
         {
             get { return _path; }
         }
+
+        #endregion
+
+
+        #region Constructors
 
         public ContentManager(string path)
         {
@@ -21,6 +28,11 @@ namespace GoldFever.Core.Content
 
             _path = path;
         }
+
+        #endregion
+
+
+        #region Methods
 
         private Stream GetStream(string fileName)
         {
@@ -54,5 +66,7 @@ namespace GoldFever.Core.Content
                 throw new ContentLoadException(fileName, ex);
             }
         }
+
+        #endregion
     }
 }

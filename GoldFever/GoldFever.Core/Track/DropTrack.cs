@@ -7,11 +7,18 @@ namespace GoldFever.Core.Track
 {
     public sealed class DropTrack : BaseTrack
     {
+        #region Constructors
+
         public DropTrack(Vector position, Direction direction)
             : base(position, direction)
         {
 
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override void OnEnter(BaseCart cart)
         {
@@ -30,5 +37,7 @@ namespace GoldFever.Core.Track
         {
             return Color.ForegroundRed | Color.BackgroundDarkRed;
         }
+
+        #endregion
     }
 }

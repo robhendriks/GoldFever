@@ -10,6 +10,8 @@ namespace GoldFever.Core.Level
 {
     public class BaseLevel
     {
+        #region Properties
+
         protected LevelManager _manager;
 
         public LevelManager Manager
@@ -66,6 +68,11 @@ namespace GoldFever.Core.Level
             get { return _spawner; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public BaseLevel(LevelManager manager, LevelModel data)
         {
             if(manager == null)
@@ -82,6 +89,11 @@ namespace GoldFever.Core.Level
 
             Initialize();
         }
+
+        #endregion
+
+
+        #region Methods
 
         protected void IncrementScore()
         {
@@ -231,5 +243,7 @@ namespace GoldFever.Core.Level
 
             _spawner.Reset();
         }
+
+        #endregion
     }
 }

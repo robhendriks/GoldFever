@@ -7,6 +7,8 @@ namespace GoldFever.Core.Ship
 {
     public sealed class ShipPort
     {
+        #region Properties
+
         private BaseLevel _level;
 
         public BaseLevel Level
@@ -43,6 +45,11 @@ namespace GoldFever.Core.Ship
             get { return _index; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public ShipPort(BaseLevel level, ShipPortModel data)
         {
             if (level == null)
@@ -60,6 +67,11 @@ namespace GoldFever.Core.Ship
 
             Spawn();
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Update()
         {
@@ -89,5 +101,7 @@ namespace GoldFever.Core.Ship
 
             Spawn();
         }
+
+        #endregion
     }
 }

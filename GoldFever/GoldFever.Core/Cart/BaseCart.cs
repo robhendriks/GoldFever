@@ -3,10 +3,16 @@ using System;
 
 namespace GoldFever.Core.Cart
 {
-    // test
     public sealed class BaseCart
     {
+        #region Private Fields
+
         private bool firstTick;
+
+        #endregion
+
+
+        #region Properties
 
         private BaseTrack _current;
 
@@ -30,11 +36,21 @@ namespace GoldFever.Core.Cart
             get { return _empty; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public BaseCart()
         {
             firstTick = true;
             _disposed = _empty = false;
         }
+
+        #endregion
+
+
+        #region Methods
 
         private void Move()
         {
@@ -93,5 +109,7 @@ namespace GoldFever.Core.Cart
         {
             return (byte)(_empty ? 1 : 2);
         }
+
+        #endregion
     }
 }

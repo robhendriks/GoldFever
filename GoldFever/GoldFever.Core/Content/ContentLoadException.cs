@@ -4,6 +4,8 @@ namespace GoldFever.Core.Content
 {
     public class ContentLoadException : GameException
     {
+        #region Constructors
+
         public ContentLoadException()
             : base()
         {
@@ -21,5 +23,7 @@ namespace GoldFever.Core.Content
         {
 
         }
+
+        #endregion
     }
 }

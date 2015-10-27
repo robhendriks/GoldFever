@@ -6,6 +6,8 @@ namespace GoldFever.Core.Track
 {
     public sealed class SwitchInTrack : SwitchTrack
     {
+        #region Properties
+
         private BaseTrack[] targets;
 
         public override BaseTrack Next
@@ -16,11 +18,21 @@ namespace GoldFever.Core.Track
             }
         }
 
+        #endregion Properties
+
+
+        #region Constructors
+
         public SwitchInTrack(Vector position, Direction direction, ConsoleKey key)
             : base(position, direction, key)
         {
 
         }
+
+        #endregion
+
+
+        #region Methods
 
         public override bool Link(BaseLevel level, out BaseTrack[] results)
         {
@@ -50,5 +62,7 @@ namespace GoldFever.Core.Track
         {
             return (_mode == SwitchMode.Down ? CharDown : CharUp);
         }
+
+        #endregion
     }
 }

@@ -4,12 +4,24 @@ namespace GoldFever.Core.Cart
 {
     public sealed class Spawner
     {
+        #region Constants
+
         private const int Slow = 8,
                           Regular = 6,
                           Fast = 4;
 
+        #endregion
+
+
+        #region Private Fields
+
         private BaseLevel level;
         private Random random;
+
+        #endregion
+
+
+        #region Properties
 
         private SpawnSpeed _speed;
 
@@ -37,6 +49,11 @@ namespace GoldFever.Core.Cart
             get { return _steps; }
         }
 
+        #endregion
+
+
+        #region Constructors
+
         public Spawner(BaseLevel level)
         {
             if (level == null)
@@ -47,6 +64,11 @@ namespace GoldFever.Core.Cart
 
             Reset();
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Update()
         {
@@ -102,11 +124,18 @@ namespace GoldFever.Core.Cart
             }
         }
 
+        #endregion
+
+
+        #region Inner Types
+
         public enum SpawnSpeed
         {
             Slow,
             Regular,
             Fast
         }
+
+        #endregion
     }
 }

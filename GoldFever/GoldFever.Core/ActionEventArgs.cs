@@ -4,7 +4,14 @@ namespace GoldFever.Core
 {
     public class ActionEventArgs : EventArgs
     {
+        #region Properties
+
         public Action Action { get; set; }
+
+        #endregion
+
+
+        #region Constructors
 
         public ActionEventArgs()
             : this(Action.None)
@@ -16,5 +23,7 @@ namespace GoldFever.Core
         {
             Action = action;
         }
+
+        #endregion
     }
 }

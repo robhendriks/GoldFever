@@ -8,10 +8,22 @@ namespace GoldFever.Core.Graphics.Terminal
 {
     public sealed class DoubleBuffer
     {
+        #region Constants
+
         private const int Width = 80,
                           Height = 25;
 
+        #endregion
+
+
+        #region Static Fields
+
         private static DoubleBuffer _instance;
+
+        #endregion
+
+
+        #region WinAPI
 
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern SafeFileHandle CreateFile(
@@ -30,6 +42,11 @@ namespace GoldFever.Core.Graphics.Terminal
             Coord dwBufferSize,
             Coord dwBufferCoord,
             ref SmallRect lpWriteRegion);
+
+        #endregion
+
+
+        #region Properties
 
         private CharInfo[] _buffer;
 
@@ -51,8 +68,18 @@ namespace GoldFever.Core.Graphics.Terminal
             get { return _handle; }
         }
 
+        #endregion
+
+
+        #region Private Fields
+
         private SmallRect region;
         private Coord position, size;
+
+        #endregion
+
+
+        #region Constructors
 
         private DoubleBuffer()
         {
@@ -70,6 +97,11 @@ namespace GoldFever.Core.Graphics.Terminal
             position = new Coord(0, 0);
             size = new Coord(Width, Height);
         }
+
+        #endregion
+
+
+        #region Methods
 
         public void Write(int x, int y, CharInfo info)
         {
@@ -114,9 +146,16 @@ namespace GoldFever.Core.Graphics.Terminal
             return WriteConsoleOutput(_handle, _buffer, size, position, ref region);
         }
 
+        #endregion
+
+
+        #region Static Methods
+
         public static DoubleBuffer GetInstance()
         {
             return _instance ?? (_instance = new DoubleBuffer());
         }
+
+        #endregion
     }
 }

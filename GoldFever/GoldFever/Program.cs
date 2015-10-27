@@ -1,24 +1,52 @@
 ﻿using GoldFever.Core;
 using GoldFever.Core.Graphics.Terminal;
-using GoldFever.UI.Views.Generic;
 using System;
 
 namespace GoldFever
 {
     public class Program
     {
-        public static void Main(string[] args)
+        #region Private Fields
+
+        private Game game;
+
+        #endregion
+
+
+        #region Constructors
+
+        public Program()
         {
-            var game = new Game(new GameOptions()
+            game = new Game(new GameOptions()
             {
                 ContentPath = "GoldFever.Content"
             });
 
             game.Renderer = new TerminalRenderer(game);
             game.Load();
+        }
 
+        #endregion
+
+
+        #region Methods
+
+        public void Run()
+        {
             var view = new MenuView(game);
             view.Show();
         }
+
+        #endregion
+
+
+        #region Static Methods
+
+        public static void Main(string[] args)
+        {
+            new Program().Run();
+        }
+
+        #endregion
     }
 }
