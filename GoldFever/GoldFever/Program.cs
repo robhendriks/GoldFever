@@ -22,7 +22,7 @@ namespace GoldFever
                 ContentPath = "GoldFever.Content"
             });
 
-            game.Renderer = new TerminalRenderer(game);
+            game.Renderer = new SlowRenderer(game);
             game.Load();
         }
 

@@ -3,7 +3,7 @@ using System;
 
 namespace GoldFever.Core.Graphics.Terminal
 {
-    public sealed class TerminalRenderer : IRenderer
+    public sealed class FastRenderer : IRenderer
     {
         #region Constants
 
@@ -23,7 +23,7 @@ namespace GoldFever.Core.Graphics.Terminal
 
         #region Constructors
 
-        public TerminalRenderer(Game game)
+        public FastRenderer(Game game)
         {
             this.game = game;
             this.buffer = DoubleBuffer.GetInstance();
