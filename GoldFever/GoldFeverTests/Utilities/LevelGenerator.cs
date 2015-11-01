@@ -7,9 +7,11 @@ using System;
 
 namespace GoldFeverTests.Utilities
 {
-    public class GameTestUtilities
+    public class LevelGenerator
     {
-        public static BaseLevel CreateLevel()
+
+
+        public static BaseLevel Generate(bool correct = true)
         {
             var game = new Game(new GameOptions()
             {
@@ -30,6 +32,12 @@ namespace GoldFeverTests.Utilities
                         Type = TrackType.Start,
                         Direction = Direction.East,
                         Position = new Vector(0, 0)
+                    },
+                    new TrackModel()
+                    {
+                        Type = TrackType.Default,
+                        Direction = Direction.East,
+                        Position = new Vector((correct ? 1 : 2), 0)
                     }
                 }
             };

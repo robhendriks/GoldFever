@@ -36,6 +36,8 @@ namespace GoldFever.Core.Cart
             get { return _empty; }
         }
 
+        public bool IgnoreTick { get; set; }
+
         #endregion
 
 
@@ -45,6 +47,8 @@ namespace GoldFever.Core.Cart
         {
             firstTick = true;
             _disposed = _empty = false;
+
+            IgnoreTick = false;
         }
 
         #endregion
@@ -56,7 +60,7 @@ namespace GoldFever.Core.Cart
         {
             if (_disposed)
                 return;
-            else if(firstTick)
+            else if(firstTick && !IgnoreTick)
             {
                 firstTick = false;
                 return;
