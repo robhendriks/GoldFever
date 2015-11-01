@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldFever", "GoldFever\Gold
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldFever.UI", "GoldFever.UI\GoldFever.UI.csproj", "{EF9B1D38-4EC2-4CAE-889D-C621C583524D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldFeverTests", "GoldFeverTests\GoldFeverTests.csproj", "{4E48928D-1FE9-4F3F-A355-8372EDDD256A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EF9B1D38-4EC2-4CAE-889D-C621C583524D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF9B1D38-4EC2-4CAE-889D-C621C583524D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF9B1D38-4EC2-4CAE-889D-C621C583524D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E48928D-1FE9-4F3F-A355-8372EDDD256A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E48928D-1FE9-4F3F-A355-8372EDDD256A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E48928D-1FE9-4F3F-A355-8372EDDD256A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E48928D-1FE9-4F3F-A355-8372EDDD256A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
