@@ -6,6 +6,7 @@ using GoldFever.Core.Model;
 using GoldFever.Core.Track;
 using GoldFeverTests.Utilities;
 using GoldFever.Core.Cart;
+using GoldFever.Core.Content;
 
 namespace GoldFeverTests
 {
@@ -23,7 +24,19 @@ namespace GoldFeverTests
         }
 
         [TestMethod]
-        [TestCategory("Tracks")]
+        [TestCategory("Level")]
+        public void LevelShouldBeLoaded()
+        {
+            var level = LevelGenerator.GenerateFromJson();
+
+            Assert.AreEqual(3, level.Tracks.Length, "Expecting 3 tracks in total.");
+            Assert.IsInstanceOfType(level.Tracks[0], typeof(StartTrack), "Start track expected at index 0.");
+            Assert.IsInstanceOfType(level.Tracks[1], typeof(DefaultTrack), "Default track expected at index 1.");
+            Assert.IsInstanceOfType(level.Tracks[2], typeof(EndTrack), "End track expected at index 2.");
+        }
+
+        [TestMethod]
+        [TestCategory("Track")]
         public void NextShouldNotBeNull()
         {
             var level = correct;
@@ -33,7 +46,7 @@ namespace GoldFeverTests
         }
 
         [TestMethod]
-        [TestCategory("Tracks")]
+        [TestCategory("Track")]
         public void NextShouldBeNull()
         {
             var level = incorrect;
@@ -43,7 +56,7 @@ namespace GoldFeverTests
         }
 
         [TestMethod]
-        [TestCategory("Carts")]
+        [TestCategory("Cart")]
         public void CartShouldBeAbleToEnter()
         {
             var level = correct;
@@ -58,7 +71,7 @@ namespace GoldFeverTests
         }
 
         [TestMethod]
-        [TestCategory("Carts")]
+        [TestCategory("Cart")]
         public void CartShouldNotBeAbleToEnter()
         {
             var level = correct;
@@ -73,7 +86,7 @@ namespace GoldFeverTests
         }
 
         [TestMethod]
-        [TestCategory("Carts")]
+        [TestCategory("Cart")]
         [ExpectedException(typeof(GameOverException))]
         public void CartShouldThrowException()
         {

@@ -1,0 +1,32 @@
+﻿{
+    "Port": {
+        "Size": 10,
+        "Index": 5
+    },
+    "Tracks": [
+        {
+            "Type": "Start",
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
+            "Direction": "East"
+        },
+        {
+            "Type": "Default",
+            "Position": {
+                "X": 1,
+                "Y": 0
+            },
+            "Direction": "East"
+        },
+        {
+            "Type": "End",
+            "Position": {
+                "X": 2,
+                "Y": 0
+            },
+            "Direction": "East"
+        }
+    ]
+}

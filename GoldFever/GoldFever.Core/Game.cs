@@ -81,13 +81,10 @@ namespace GoldFever.Core
 
         #region Constructors
 
-        public Game(GameOptions options)
+        public Game(GameOptions options = null)
         {
-            if (options == null)
-                throw new ArgumentNullException("options");
-
             _ready = false;
-            _options = options;
+            _options = options ?? new DefaultGameOptions();
 
             Initialize();
         }
@@ -99,7 +96,7 @@ namespace GoldFever.Core
 
         private void Initialize()
         {
-            _contentManager = new ContentManager(_options.ContentPath);
+            _contentManager = new ContentManager(_options.ContentPath, _options.ContentSource);
             _levelManager = new LevelManager(this);
         }
 

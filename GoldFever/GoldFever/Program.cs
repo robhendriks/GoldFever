@@ -17,10 +17,7 @@ namespace GoldFever
 
         public Program()
         {
-            game = new Game(new GameOptions()
-            {
-                ContentPath = "GoldFever.Content"
-            });
+            game = new Game();
 
             game.Renderer = new FastRenderer(game);
             game.Load();

@@ -47,8 +47,12 @@
     <Compile Include="Action.cs" />
     <Compile Include="ActionEventArgs.cs" />
     <Compile Include="Cart\Spawner.cs" />
+    <Compile Include="Content\BaseContentSource.cs" />
     <Compile Include="Content\ContentLoadException.cs" />
     <Compile Include="Content\ContentManager.cs" />
+    <Compile Include="Content\IContentSource.cs" />
+    <Compile Include="Content\NamedContentSource.cs" />
+    <Compile Include="DefaultGameOptions.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameException.cs" />
     <Compile Include="GameOptions.cs" />

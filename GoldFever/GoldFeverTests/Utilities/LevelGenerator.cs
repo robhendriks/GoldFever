@@ -1,4 +1,5 @@
 ﻿using GoldFever.Core;
+using GoldFever.Core.Content;
 using GoldFever.Core.Generic;
 using GoldFever.Core.Level;
 using GoldFever.Core.Model;
@@ -9,14 +10,9 @@ namespace GoldFeverTests.Utilities
 {
     public class LevelGenerator
     {
-
-
         public static BaseLevel Generate(bool correct = true)
         {
-            var game = new Game(new GameOptions()
-            {
-                ContentPath = "GoldFeverTests.Content"
-            });
+            var game = new Game();
 
             var data = new LevelModel()
             {
@@ -44,6 +40,18 @@ namespace GoldFeverTests.Utilities
 
             var manager = new LevelManager(game);
             return new BaseLevel(manager, data);
+        }
+
+        public static BaseLevel GenerateFromJson()
+        {
+            var game = new Game(new GameOptions()
+            {
+                ContentPath = "GoldFeverTests.Content",
+                ContentSource = new NamedContentSource("GoldFeverTests")
+            });
+
+            game.Load();
+            return game.Level;
         }
     }
 }

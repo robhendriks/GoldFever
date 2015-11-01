@@ -1,12 +1,14 @@
-﻿using System;
+﻿using GoldFever.Core.Content;
+using System;
 
 namespace GoldFever.Core
 {
-    public sealed class GameOptions
+    public class GameOptions
     {
         #region Properties
 
-        public string ContentPath { get; set; }
+        public virtual string ContentPath { get; set; }
+        public virtual IContentSource ContentSource { get; set; }
 
         #endregion
     }

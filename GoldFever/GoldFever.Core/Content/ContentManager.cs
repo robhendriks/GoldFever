@@ -16,17 +16,27 @@ namespace GoldFever.Core.Content
             get { return _path; }
         }
 
+        private IContentSource _source;
+
+        public IContentSource Source
+        {
+            get { return _source; }
+        }
+
         #endregion
 
 
         #region Constructors
 
-        public ContentManager(string path)
+        public ContentManager(string path, IContentSource source)
         {
-            if (String.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
                 throw new ArgumentException("Invalid path supplied.");
+            else if (source == null)
+                throw new ArgumentNullException("source");
 
             _path = path;
+            _source = source;
         }
 
         #endregion
@@ -36,7 +46,7 @@ namespace GoldFever.Core.Content
 
         private Stream GetStream(string fileName)
         {
-            var assembly = Assembly.GetEntryAssembly();
+            var assembly = Source.GetAssembly();
             return assembly.GetManifestResourceStream(String.Join(".", _path, fileName));
         }
 
