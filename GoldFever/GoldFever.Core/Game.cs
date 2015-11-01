@@ -1,4 +1,5 @@
-﻿using GoldFever.Core.Content;
+﻿using GoldFever.Core.Cart;
+using GoldFever.Core.Content;
 using GoldFever.Core.Graphics;
 using GoldFever.Core.Level;
 using System;
@@ -71,7 +72,19 @@ namespace GoldFever.Core
         public int Score
         {
             get { return _score; }
-            set { _score = value; }
+            set
+            {
+                _score = value;
+
+                if (_score > 640)
+                    Level.Spawner.Speed = SpawnSpeed.Fast;
+                else if (_score > 320)
+                    Level.Spawner.Speed = SpawnSpeed.Faster;
+                else if (_score > 160)
+                    Level.Spawner.Speed = SpawnSpeed.Fast;
+                else
+                    Level.Spawner.Speed = SpawnSpeed.Regular;
+            }
         }
 
         public IRenderer Renderer { get; set; }

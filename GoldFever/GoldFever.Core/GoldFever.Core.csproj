@@ -47,6 +47,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="ActionEventArgs.cs" />
     <Compile Include="Cart\Spawner.cs" />
+    <Compile Include="Cart\SpawnSpeed.cs" />
     <Compile Include="Content\BaseContentSource.cs" />
     <Compile Include="Content\ContentLoadException.cs" />
     <Compile Include="Content\ContentManager.cs" />

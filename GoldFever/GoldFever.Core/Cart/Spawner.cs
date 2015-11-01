@@ -6,9 +6,10 @@ namespace GoldFever.Core.Cart
     {
         #region Constants
 
-        private const int Slow = 8,
-                          Regular = 6,
-                          Fast = 4;
+        private const int Regular = 6,
+                          Fast = 4,
+                          Faster = 3,
+                          Fastest = 2;
 
         #endregion
 
@@ -115,25 +116,15 @@ namespace GoldFever.Core.Cart
             {
                 default:
                     return -1;
-                case SpawnSpeed.Slow:
-                    return Slow;
                 case SpawnSpeed.Regular:
                     return Regular;
                 case SpawnSpeed.Fast:
                     return Fast;
+                case SpawnSpeed.Faster:
+                    return Faster;
+                case SpawnSpeed.Fastest:
+                    return Fastest;
             }
-        }
-
-        #endregion
-
-
-        #region Inner Types
-
-        public enum SpawnSpeed
-        {
-            Slow,
-            Regular,
-            Fast
         }
 
         #endregion
